@@ -180,7 +180,7 @@ function getVideoAction(video) {
 }
 
 function renderPreviewMedia(video, fallbackCover, label) {
-  const cover = video?.cover || fallbackCover;
+  const cover = video?.poster || video?.cover || fallbackCover;
   if (!video?.url) return `<img src="${cover}" alt="${label}封面" loading="lazy">`;
 
   return `
@@ -248,10 +248,16 @@ function renderVideos(work, videos) {
     <div class="video-list" aria-label="${work.title}的延展案例列表">
       ${videos.map((video) => `
         <article class="video-card">
-          <div class="video-thumb">
+          <button
+            class="video-thumb"
+            type="button"
+            data-video-src="${escapeAttribute(video.url)}"
+            data-video-title="${escapeAttribute(video.title)}"
+            data-video-meta="${escapeAttribute(getVideoMeta(video).join(" · "))}"
+            aria-label="播放${escapeAttribute(video.title)}"
+          >
             ${renderPreviewMedia(video, work.cover, video.title)}
-            <span class="play-indicator small" aria-hidden="true"></span>
-          </div>
+          </button>
           <div class="video-info">
             <div class="video-meta">
               ${getVideoMeta(video).map((item) => `<span>${item}</span>`).join("")}
@@ -397,6 +403,9 @@ document.addEventListener("keydown", (event) => {
 });
 
 function setupVideoPreviews() {
+  const canHoverPreview = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (!canHoverPreview) return;
+
   document.querySelectorAll(".preview-media").forEach((video) => {
     const ensurePreviewSource = () => {
       if (video.src || !video.dataset.previewSrc) return;

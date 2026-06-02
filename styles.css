@@ -422,12 +422,14 @@ h3 {
   inset: 0;
 }
 
-.work-card:hover .work-cover img {
+.work-card:hover .work-cover img,
+.video-thumb:hover img {
   transform: scale(1.04);
   filter: saturate(1.08) contrast(1.04);
 }
 
-.work-card:hover .work-cover .preview-media {
+.work-card:hover .work-cover .preview-media,
+.video-thumb:hover .preview-media {
   filter: saturate(1.08) contrast(1.04);
 }
 
@@ -512,13 +514,6 @@ h3 {
   height: 54px;
 }
 
-.play-indicator.small {
-  right: 10px;
-  bottom: 10px;
-  width: 34px;
-  height: 34px;
-}
-
 .play-indicator::before {
   content: "";
   position: absolute;
@@ -534,14 +529,6 @@ h3 {
 .play-indicator.large::before {
   top: 18px;
   left: 21px;
-}
-
-.play-indicator.small::before {
-  top: 10px;
-  left: 13px;
-  border-top-width: 7px;
-  border-bottom-width: 7px;
-  border-left-width: 10px;
 }
 
 .work-body {
@@ -652,15 +639,32 @@ h3 {
   position: relative;
   aspect-ratio: 16 / 10;
   border-radius: 6px;
+  border: 0;
   background: #111;
+  padding: 0;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .video-thumb img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+.video-thumb video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.video-thumb:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
 }
 
 .video-info {
