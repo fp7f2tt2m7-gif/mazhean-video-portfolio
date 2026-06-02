@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="马哲铵的信息流素材编导、电商短视频编拍剪与短视频拍摄剪辑作品集。">
+    <title>马哲铵 | 信息流素材与短视频作品集</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header" aria-label="页面导航">
+      <a class="brand" href="#top" aria-label="返回首页">马哲铵 · 视频作品集</a>
+      <nav class="nav-links" aria-label="主要导航">
+        <a href="#experience-nav">项目导航</a>
+        <a href="#works">作品库</a>
+        <a href="#capabilities">能力</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Video Portfolio / Hangzhou</p>
+          <h1 id="hero-title">
+            <span>信息流素材</span>
+            <span>短视频作品集</span>
+          </h1>
+          <p class="hero-summary">
+            马哲铵，求职方向：信息流素材编导 / 电商短视频编拍剪 / 短视频拍摄剪辑。4 年以上短视频内容与电商新媒体经验，覆盖 3C 数码、珠宝、医疗 IP、汽车、品牌电商等项目。
+          </p>
+          <div class="hero-actions" aria-label="快捷入口">
+            <a class="button primary" href="#experience-nav">按项目查看</a>
+            <a class="button secondary" href="#works">直接进入作品库</a>
+          </div>
+          <div class="stats" aria-label="作品集概览">
+            <div>
+              <strong id="stat-count">6</strong>
+              <span>段工作经历</span>
+            </div>
+            <div>
+              <strong>4</strong>
+              <span>年以上视频经验</span>
+            </div>
+            <div>
+              <strong id="stat-video-count">22</strong>
+              <span>条案例视频</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section experience-nav" id="experience-nav" aria-labelledby="experience-nav-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Experience Navigation</p>
+            <h2 id="experience-nav-title">项目导航</h2>
+          </div>
+          <p>先按工作经历选择，再跳到对应视频案例。项目按最新经历优先展示，方便快速查看负责内容、代表成果和可播放素材。</p>
+        </div>
+        <div class="experience-grid" id="experience-grid"></div>
+      </section>
+
+      <section class="section works-section" id="works" aria-labelledby="works-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Work Library</p>
+            <h2 id="works-title">作品库</h2>
+          </div>
+          <p>按信息流素材、医生 IP、珠宝电商、汽车新媒体、宣传片等项目归类，比网盘目录更容易判断：这是什么项目、负责什么、有哪些结果。</p>
+        </div>
+        <div class="work-grid" id="work-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="section capabilities" id="capabilities" aria-labelledby="capabilities-title">
+        <div class="capability-panel">
+          <div>
+            <p class="eyebrow">Capabilities</p>
+            <h2 id="capabilities-title">可承担的工作</h2>
+          </div>
+          <ul>
+            <li>信息流广告素材策划与脚本撰写</li>
+            <li>商品卖点提炼与用户痛点挖掘</li>
+            <li>短视频拍摄、剪辑、字幕与包装</li>
+            <li>直播间引流、直播切片与产品展示</li>
+            <li>素材裂变、数据复盘与投放反馈优化</li>
+            <li>AI 辅助脚本拆解、文案优化与批量产出</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>马哲铵｜13967475904｜2357582803@qq.com</span>
+      <span>期望工作地：杭州｜Updated 2026</span>
+    </footer>
+
+    <div class="video-modal" id="video-modal" hidden>
+      <div class="video-modal-backdrop" data-close-video></div>
+      <section class="video-modal-panel" aria-label="视频预览">
+        <div class="video-modal-top">
+          <div>
+            <span id="video-modal-meta">视频预览</span>
+            <h3 id="video-modal-title">作品视频</h3>
+          </div>
+          <button class="video-modal-close" type="button" aria-label="关闭视频" data-close-video>×</button>
+        </div>
+        <video id="video-player" controls playsinline preload="metadata"></video>
+      </section>
+    </div>
+
+    <script src="local-videos.js"></script>
+    <script src="works.js"></script>
+  </body>
+</html>
