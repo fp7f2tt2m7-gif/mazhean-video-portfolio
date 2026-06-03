@@ -118,6 +118,21 @@ const works = [
 const localVideoLibrary = window.localVideoLibrary || {};
 const expandedWorkIds = new Set();
 
+function getVideoCdnBaseUrl() {
+  return String(window.VIDEO_CDN_BASE_URL || "").trim().replace(/\/+$/, "");
+}
+
+function isAbsoluteUrl(value) {
+  return /^[a-z][a-z0-9+.-]*:/i.test(value) || value.startsWith("//");
+}
+
+function resolveVideoUrl(value) {
+  const path = String(value || "").trim();
+  const base = getVideoCdnBaseUrl();
+  if (!path || !base || isAbsoluteUrl(path)) return path;
+  return `${base}/${path.replace(/^\/+/, "")}`;
+}
+
 works.forEach((work) => {
   if (localVideoLibrary[work.id]?.length) {
     work.videos = localVideoLibrary[work.id];
@@ -171,6 +186,7 @@ function getVideoAction(video) {
       class="video-link"
       type="button"
       data-video-src="${escapeAttribute(video.url)}"
+      data-video-poster="${escapeAttribute(video.poster || video.cover || "")}"
       data-video-title="${escapeAttribute(video.title)}"
       data-video-meta="${escapeAttribute(meta)}"
     >
@@ -181,19 +197,7 @@ function getVideoAction(video) {
 
 function renderPreviewMedia(video, fallbackCover, label) {
   const cover = video?.poster || video?.cover || fallbackCover;
-  if (!video?.url) return `<img src="${cover}" alt="${label}封面" loading="lazy">`;
-
-  return `
-    <video
-      class="preview-media"
-      data-preview-src="${escapeAttribute(video.url)}"
-      poster="${escapeAttribute(cover)}"
-      muted
-      playsinline
-      preload="none"
-      aria-label="${escapeAttribute(label)}视频预览"
-    ></video>
-  `;
+  return `<img class="preview-media" src="${escapeAttribute(cover)}" alt="${escapeAttribute(label)}封面" loading="lazy" decoding="async">`;
 }
 
 function updateOverview() {
@@ -252,6 +256,7 @@ function renderVideos(work, videos) {
             class="video-thumb"
             type="button"
             data-video-src="${escapeAttribute(video.url)}"
+            data-video-poster="${escapeAttribute(video.poster || video.cover || work.cover)}"
             data-video-title="${escapeAttribute(video.title)}"
             data-video-meta="${escapeAttribute(getVideoMeta(video).join(" · "))}"
             aria-label="播放${escapeAttribute(video.title)}"
@@ -287,6 +292,7 @@ function renderFeaturedVideo(work, video, secondaryCount) {
       class="feature-video-button"
       type="button"
       data-video-src="${escapeAttribute(video.url)}"
+      data-video-poster="${escapeAttribute(video.poster || video.cover || cover)}"
       data-video-title="${escapeAttribute(video.title)}"
       data-video-meta="${escapeAttribute(meta)}"
       aria-label="播放${video.title}"
@@ -299,50 +305,6 @@ function renderFeaturedVideo(work, video, secondaryCount) {
     </button>
     <span class="video-count">1 个主推 + ${secondaryCount} 个延展</span>
   `;
-}
-
-const warmedVideoSources = new Map();
-let previewPreloadObserver = null;
-
-function runWhenIdle(callback) {
-  if ("requestIdleCallback" in window) {
-    window.requestIdleCallback(callback, { timeout: 1200 });
-  } else {
-    window.setTimeout(callback, 180);
-  }
-}
-
-function prewarmVideoSource(src) {
-  if (!src || warmedVideoSources.has(src)) return;
-
-  const video = document.createElement("video");
-  video.preload = "metadata";
-  video.muted = true;
-  video.playsInline = true;
-  video.src = src;
-  video.load();
-  warmedVideoSources.set(src, video);
-}
-
-function setPreviewVideoSource(video) {
-  if (video.currentSrc || video.src || !video.dataset.previewSrc) return;
-
-  video.preload = "metadata";
-  video.src = video.dataset.previewSrc;
-  video.load();
-}
-
-function resetPreviewFrame(video) {
-  if (!Number.isFinite(video.duration) || video.duration <= 0) return;
-
-  const previewTime = Math.min(0.2, video.duration / 4);
-  try {
-    if (Math.abs(video.currentTime - previewTime) > 0.05) {
-      video.currentTime = previewTime;
-    }
-  } catch {
-    // Some browsers reject seeks until the first metadata range has settled.
-  }
 }
 
 function renderWorks() {
@@ -396,11 +358,7 @@ function renderWorks() {
 
   grid.querySelectorAll("[data-video-src]").forEach((button) => {
     button.addEventListener("click", () => openVideoModal(button));
-    button.addEventListener("pointerenter", () => prewarmVideoSource(button.dataset.videoSrc), { passive: true });
-    button.addEventListener("focus", () => prewarmVideoSource(button.dataset.videoSrc));
   });
-
-  setupVideoPreviews();
 }
 
 updateOverview();
@@ -415,7 +373,8 @@ const videoModalMeta = document.querySelector("#video-modal-meta");
 function openVideoModal(button) {
   if (!videoModal || !videoPlayer) return;
 
-  videoPlayer.src = button.dataset.videoSrc;
+  videoPlayer.poster = button.dataset.videoPoster || "";
+  videoPlayer.src = resolveVideoUrl(button.dataset.videoSrc);
   videoModalTitle.textContent = button.dataset.videoTitle || "作品视频";
   videoModalMeta.textContent = button.dataset.videoMeta || "视频预览";
   videoModal.hidden = false;
@@ -433,6 +392,7 @@ function closeVideoModal() {
 
   videoPlayer.pause();
   videoPlayer.removeAttribute("src");
+  videoPlayer.removeAttribute("poster");
   videoPlayer.load();
   videoModal.hidden = true;
   document.body.classList.remove("modal-open");
@@ -447,63 +407,3 @@ document.addEventListener("keydown", (event) => {
     closeVideoModal();
   }
 });
-
-function setupVideoPreviews() {
-  const canHoverPreview = !window.matchMedia || window.matchMedia("(any-hover: hover), (hover: hover)").matches;
-  const previewVideos = document.querySelectorAll(".preview-media");
-  if (!previewVideos.length) return;
-
-  if (!previewPreloadObserver && "IntersectionObserver" in window) {
-    previewPreloadObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-
-        const video = entry.target;
-        previewPreloadObserver.unobserve(video);
-        runWhenIdle(() => {
-          if (video.isConnected) setPreviewVideoSource(video);
-        });
-      });
-    }, { rootMargin: "420px 0px" });
-  }
-
-  previewVideos.forEach((video) => {
-    video.addEventListener("loadedmetadata", () => resetPreviewFrame(video), { once: true });
-
-    if (previewPreloadObserver) {
-      previewPreloadObserver.observe(video);
-    } else {
-      runWhenIdle(() => setPreviewVideoSource(video));
-    }
-
-    const previewHost = video.closest(".work-cover, .video-thumb");
-    if (!previewHost) return;
-
-    const playPreview = () => {
-      setPreviewVideoSource(video);
-      video.preload = "auto";
-      video.muted = true;
-      video.loop = true;
-      const playRequest = video.play();
-      if (playRequest) playRequest.catch(() => {});
-    };
-
-    const stopPreview = () => {
-      video.pause();
-      resetPreviewFrame(video);
-    };
-
-    if (canHoverPreview) {
-      if ("PointerEvent" in window) {
-        previewHost.addEventListener("pointerenter", playPreview);
-        previewHost.addEventListener("pointerleave", stopPreview);
-      } else {
-        previewHost.addEventListener("mouseenter", playPreview);
-        previewHost.addEventListener("mouseleave", stopPreview);
-      }
-    }
-
-    previewHost.addEventListener("focusin", playPreview);
-    previewHost.addEventListener("focusout", stopPreview);
-  });
-}

@@ -1,0 +1,1 @@
+window.VIDEO_CDN_BASE_URL = "";
