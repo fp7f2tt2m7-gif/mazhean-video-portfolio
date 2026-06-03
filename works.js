@@ -186,7 +186,7 @@ function renderPreviewMedia(video, fallbackCover, label) {
   return `
     <video
       class="preview-media"
-      data-preview-src="${escapeAttribute(video.url)}#t=0.1"
+      data-preview-src="${escapeAttribute(video.url)}"
       poster="${escapeAttribute(cover)}"
       muted
       playsinline
@@ -301,6 +301,50 @@ function renderFeaturedVideo(work, video, secondaryCount) {
   `;
 }
 
+const warmedVideoSources = new Map();
+let previewPreloadObserver = null;
+
+function runWhenIdle(callback) {
+  if ("requestIdleCallback" in window) {
+    window.requestIdleCallback(callback, { timeout: 1200 });
+  } else {
+    window.setTimeout(callback, 180);
+  }
+}
+
+function prewarmVideoSource(src) {
+  if (!src || warmedVideoSources.has(src)) return;
+
+  const video = document.createElement("video");
+  video.preload = "metadata";
+  video.muted = true;
+  video.playsInline = true;
+  video.src = src;
+  video.load();
+  warmedVideoSources.set(src, video);
+}
+
+function setPreviewVideoSource(video) {
+  if (video.currentSrc || video.src || !video.dataset.previewSrc) return;
+
+  video.preload = "metadata";
+  video.src = video.dataset.previewSrc;
+  video.load();
+}
+
+function resetPreviewFrame(video) {
+  if (!Number.isFinite(video.duration) || video.duration <= 0) return;
+
+  const previewTime = Math.min(0.2, video.duration / 4);
+  try {
+    if (Math.abs(video.currentTime - previewTime) > 0.05) {
+      video.currentTime = previewTime;
+    }
+  } catch {
+    // Some browsers reject seeks until the first metadata range has settled.
+  }
+}
+
 function renderWorks() {
   const grid = document.querySelector("#work-grid");
   if (!grid) return;
@@ -352,6 +396,8 @@ function renderWorks() {
 
   grid.querySelectorAll("[data-video-src]").forEach((button) => {
     button.addEventListener("click", () => openVideoModal(button));
+    button.addEventListener("pointerenter", () => prewarmVideoSource(button.dataset.videoSrc), { passive: true });
+    button.addEventListener("focus", () => prewarmVideoSource(button.dataset.videoSrc));
   });
 
   setupVideoPreviews();
@@ -403,32 +449,39 @@ document.addEventListener("keydown", (event) => {
 });
 
 function setupVideoPreviews() {
-  const canHoverPreview = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  if (!canHoverPreview) return;
+  const canHoverPreview = !window.matchMedia || window.matchMedia("(any-hover: hover), (hover: hover)").matches;
+  const previewVideos = document.querySelectorAll(".preview-media");
+  if (!previewVideos.length) return;
 
-  document.querySelectorAll(".preview-media").forEach((video) => {
-    const ensurePreviewSource = () => {
-      if (video.src || !video.dataset.previewSrc) return;
-      video.src = video.dataset.previewSrc;
-      video.load();
-    };
+  if (!previewPreloadObserver && "IntersectionObserver" in window) {
+    previewPreloadObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
 
-    const resetToPreviewFrame = () => {
-      if (!Number.isFinite(video.duration) || video.duration <= 0) return;
-      video.currentTime = Math.min(0.2, video.duration / 4);
-    };
+        const video = entry.target;
+        previewPreloadObserver.unobserve(video);
+        runWhenIdle(() => {
+          if (video.isConnected) setPreviewVideoSource(video);
+        });
+      });
+    }, { rootMargin: "420px 0px" });
+  }
 
-    if (video.readyState >= 1) {
-      resetToPreviewFrame();
+  previewVideos.forEach((video) => {
+    video.addEventListener("loadedmetadata", () => resetPreviewFrame(video), { once: true });
+
+    if (previewPreloadObserver) {
+      previewPreloadObserver.observe(video);
     } else {
-      video.addEventListener("loadedmetadata", resetToPreviewFrame, { once: true });
+      runWhenIdle(() => setPreviewVideoSource(video));
     }
 
     const previewHost = video.closest(".work-cover, .video-thumb");
     if (!previewHost) return;
 
     const playPreview = () => {
-      ensurePreviewSource();
+      setPreviewVideoSource(video);
+      video.preload = "auto";
       video.muted = true;
       video.loop = true;
       const playRequest = video.play();
@@ -437,11 +490,19 @@ function setupVideoPreviews() {
 
     const stopPreview = () => {
       video.pause();
-      resetToPreviewFrame();
+      resetPreviewFrame(video);
     };
 
-    previewHost.addEventListener("mouseenter", playPreview);
-    previewHost.addEventListener("mouseleave", stopPreview);
+    if (canHoverPreview) {
+      if ("PointerEvent" in window) {
+        previewHost.addEventListener("pointerenter", playPreview);
+        previewHost.addEventListener("pointerleave", stopPreview);
+      } else {
+        previewHost.addEventListener("mouseenter", playPreview);
+        previewHost.addEventListener("mouseleave", stopPreview);
+      }
+    }
+
     previewHost.addEventListener("focusin", playPreview);
     previewHost.addEventListener("focusout", stopPreview);
   });
