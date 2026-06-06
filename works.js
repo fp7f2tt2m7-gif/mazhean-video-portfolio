@@ -112,6 +112,22 @@ const works = [
       { title: "影视取景素材剪辑", type: "宣传片", format: "横屏", duration: "01:45", url: "", cover: "assets/covers/cover-06.png" },
       { title: "项目交付包装样片", type: "后期包装", format: "横屏", duration: "01:10", url: "", cover: "assets/covers/cover-06.png" }
     ]
+  },
+  {
+    id: "ai-video",
+    title: "AI 视频实验",
+    company: "AI 生成 / AI 辅助制作实验案例",
+    position: "非真实商业拍摄项目",
+    period: "AI Video Experiment",
+    roles: ["AI 视频生成", "AI 广告创意", "镜头设计", "剪辑包装"],
+    category: "AI 广告素材",
+    summary: "展示 AI 视频生成、AI 广告创意、AI 产品短片等实验案例，体现我对 AI 视频工具、信息流创意和短视频表达的结合能力。以下内容均为 AI 生成或 AI 辅助制作实验案例。",
+    result: "本模块用于展示 AI 视频创意与制作方法实验，不代表真实商业拍摄项目或实际客户合作案例。",
+    cover: "assets/posters/ai-video/01-AI大疆产品场景展示.jpg",
+    priority: 7,
+    featured: true,
+    isExperiment: true,
+    videos: []
   }
 ];
 
@@ -141,6 +157,10 @@ works.forEach((work) => {
 
 function getFeaturedWorks() {
   return works.filter((work) => work.featured).sort((a, b) => a.priority - b.priority);
+}
+
+function getRealProjectWorks() {
+  return getFeaturedWorks().filter((work) => !work.isExperiment);
 }
 
 function getCaseVideoCount(work) {
@@ -203,9 +223,10 @@ function renderPreviewMedia(video, fallbackCover, label) {
 function updateOverview() {
   const statCount = document.querySelector("#stat-count");
   const statVideoCount = document.querySelector("#stat-video-count");
-  if (statCount) statCount.textContent = getFeaturedWorks().length;
+  const realProjectWorks = getRealProjectWorks();
+  if (statCount) statCount.textContent = realProjectWorks.length;
   if (statVideoCount) {
-    statVideoCount.textContent = getFeaturedWorks().reduce((total, work) => total + work.videos.length, 0);
+    statVideoCount.textContent = realProjectWorks.reduce((total, work) => total + work.videos.length, 0);
   }
 }
 

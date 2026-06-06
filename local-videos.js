@@ -296,5 +296,46 @@ window.localVideoLibrary = {
       "cover": "assets/covers/cover-06.png",
       "poster": "assets/posters/saber-tooth/02-活动记录.jpg"
     }
+  ],
+  "ai-video": [
+    {
+      "title": "AI大疆产品场景展示",
+      "type": "AI 视频实验",
+      "format": "竖屏",
+      "duration": "49.5 MB",
+      "size": "49.5 MB",
+      "sizeMb": 49.5,
+      "url": "assets/videos/ai-video/01-AI大疆产品场景展示.mp4",
+      "sourcePath": "assets/videos/ai-video/01-AI大疆产品场景展示.mp4",
+      "sourceRelativePath": "assets/videos/ai-video/01-AI大疆产品场景展示.mp4",
+      "cover": "assets/posters/ai-video/01-AI大疆产品场景展示.jpg",
+      "poster": "assets/posters/ai-video/01-AI大疆产品场景展示.jpg"
+    },
+    {
+      "title": "AI大疆运动场景广告",
+      "type": "AI 视频实验",
+      "format": "竖屏",
+      "duration": "16.7 MB",
+      "size": "16.7 MB",
+      "sizeMb": 16.7,
+      "url": "assets/videos/ai-video/02-AI大疆运动场景广告.mp4",
+      "sourcePath": "assets/videos/ai-video/02-AI大疆运动场景广告.mp4",
+      "sourceRelativePath": "assets/videos/ai-video/02-AI大疆运动场景广告.mp4",
+      "cover": "assets/posters/ai-video/02-AI大疆运动场景广告.jpg",
+      "poster": "assets/posters/ai-video/02-AI大疆运动场景广告.jpg"
+    },
+    {
+      "title": "AI大疆产品创意短片",
+      "type": "AI 视频实验",
+      "format": "竖屏",
+      "duration": "21.1 MB",
+      "size": "21.1 MB",
+      "sizeMb": 21.1,
+      "url": "assets/videos/ai-video/03-AI大疆产品创意短片.mp4",
+      "sourcePath": "assets/videos/ai-video/03-AI大疆产品创意短片.mp4",
+      "sourceRelativePath": "assets/videos/ai-video/03-AI大疆产品创意短片.mp4",
+      "cover": "assets/posters/ai-video/03-AI大疆产品创意短片.jpg",
+      "poster": "assets/posters/ai-video/03-AI大疆产品创意短片.jpg"
+    }
   ]
 };
