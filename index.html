@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="马哲铵的信息流素材编导、电商短视频编拍剪与短视频拍摄剪辑作品集。">
+    <meta name="description" content="马哲铵的信息流素材编导作品集，聚焦 3C、电商与短视频内容的策划、拍摄、剪辑和数据复盘。">
     <meta name="robots" content="index,follow">
     <meta name="theme-color" content="#0f1820">
     <meta name="format-detection" content="telephone=no">
@@ -12,7 +12,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="马哲铵 · 视频作品集">
     <meta property="og:title" content="马哲铵 | 视频作品集">
-    <meta property="og:description" content="信息流素材、电商短视频、拍摄剪辑作品集，包含 22 条精选案例视频与 6 段项目经历。">
+    <meta property="og:description" content="信息流素材编导作品集，包含 22 条精选案例视频与 6 段项目经历。">
     <meta property="og:url" content="https://fp7f2tt2m7-gif.github.io/mazhean-video-portfolio/">
     <meta property="og:image" content="https://fp7f2tt2m7-gif.github.io/mazhean-video-portfolio/assets/social-card.png">
     <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
     <meta property="og:image:alt" content="马哲铵视频作品集封面">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="马哲铵 | 视频作品集">
-    <meta name="twitter:description" content="信息流素材、电商短视频、拍摄剪辑作品集，包含 22 条精选案例视频与 6 段项目经历。">
+    <meta name="twitter:description" content="信息流素材编导作品集，包含 22 条精选案例视频与 6 段项目经历。">
     <meta name="twitter:image" content="https://fp7f2tt2m7-gif.github.io/mazhean-video-portfolio/assets/social-card.png">
     <title>马哲铵 | 信息流素材与短视频作品集</title>
     <link rel="stylesheet" href="styles.css">
@@ -29,26 +29,38 @@
     <header class="site-header" aria-label="页面导航">
       <a class="brand" href="#top" aria-label="返回首页">马哲铵 · 视频作品集</a>
       <nav class="nav-links" aria-label="主要导航">
-        <a href="#experience-nav">项目导航</a>
+        <a href="#featured-works">代表作</a>
         <a href="#works">作品库</a>
-        <a href="#capabilities">能力</a>
+        <div class="contact-menu">
+          <button class="contact-trigger" type="button" aria-expanded="false" aria-controls="contact-panel">联系我</button>
+          <aside class="contact-panel" id="contact-panel" hidden aria-label="联系信息">
+            <p>欢迎联系</p>
+            <a href="tel:13967475904">139 6747 5904</a>
+            <a href="mailto:2357582803@qq.com">2357582803@qq.com</a>
+            <div class="contact-actions">
+              <button type="button" data-copy-text="13967475904">复制手机号</button>
+              <button type="button" data-copy-text="2357582803@qq.com">复制邮箱</button>
+            </div>
+            <span class="copy-status" id="copy-status" role="status" aria-live="polite"></span>
+          </aside>
+        </div>
       </nav>
     </header>
 
     <main id="top">
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="eyebrow">Video Portfolio / Hangzhou</p>
+          <p class="eyebrow">Performance Creative / Hangzhou</p>
           <h1 id="hero-title">
-            <span>信息流素材</span>
-            <span>短视频作品集</span>
+            <span>信息流素材编导</span>
+            <span>编拍剪作品集</span>
           </h1>
           <p class="hero-summary">
-            马哲铵，求职方向：信息流素材编导 / 电商短视频编拍剪 / 短视频拍摄剪辑。4 年以上短视频内容与电商新媒体经验，覆盖 3C 数码、珠宝、医疗 IP、汽车、品牌电商等项目。
+            专注信息流素材的策划、拍摄、剪辑与数据复盘。4 年以上短视频内容与电商新媒体经验，覆盖 3C 数码、珠宝、医疗 IP、汽车与品牌电商项目。
           </p>
           <div class="hero-actions" aria-label="快捷入口">
-            <a class="button primary" href="#experience-nav">按项目查看</a>
-            <a class="button secondary" href="#works">直接进入作品库</a>
+            <a class="button primary" href="#featured-works">查看代表项目</a>
+            <a class="button secondary" href="#experience-nav">按经历浏览</a>
           </div>
           <div class="stats" aria-label="作品集概览">
             <div>
@@ -67,13 +79,24 @@
         </div>
       </section>
 
+      <section class="section featured-works-section" id="featured-works" aria-labelledby="featured-works-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Selected Work</p>
+            <h2 id="featured-works-title">代表项目</h2>
+          </div>
+          <p>先用三个项目看清我能承担什么、做成过什么；点击即可跳到完整案例与可播放视频。</p>
+        </div>
+        <div class="featured-work-grid" id="featured-work-grid"></div>
+      </section>
+
       <section class="section experience-nav" id="experience-nav" aria-labelledby="experience-nav-title">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Experience Navigation</p>
             <h2 id="experience-nav-title">项目导航</h2>
           </div>
-          <p>先按工作经历选择，再跳到对应视频案例。项目按最新经历优先展示，方便快速查看负责内容、代表成果和可播放素材。</p>
+          <p>6 段正式工作经历按时间倒序展示。选择项目后，会直接跳到对应案例与可播放视频。</p>
         </div>
         <div class="experience-grid" id="experience-grid"></div>
       </section>
@@ -84,9 +107,22 @@
             <p class="eyebrow">Work Library</p>
             <h2 id="works-title">作品库</h2>
           </div>
-          <p>按信息流素材、医生 IP、珠宝电商、汽车新媒体、宣传片等项目归类，比网盘目录更容易判断：这是什么项目、负责什么、有哪些结果。</p>
+          <p>每个案例按“项目内容、本人职责、核心结果”组织；主推视频优先展示，其余案例可按需展开。</p>
         </div>
         <div class="work-grid" id="work-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="experiment-section" id="experiments" aria-labelledby="experiments-title">
+        <div class="section experiment-inner">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Creative Lab</p>
+              <h2 id="experiments-title">AI 制作实验室</h2>
+            </div>
+            <p>以下为 AI 生成或 AI 辅助制作的实验案例，用于展示创意与工具应用能力，不与真实商业项目混排。</p>
+          </div>
+          <div class="work-grid" id="experiment-grid" aria-live="polite"></div>
+        </div>
       </section>
 
       <section class="section capabilities" id="capabilities" aria-labelledby="capabilities-title">
@@ -128,6 +164,6 @@
 
     <script src="video-config.js"></script>
     <script src="local-videos.js?v=20260606-ai-video"></script>
-    <script src="works.js?v=20260606-ai-video"></script>
+    <script src="works.js?v=20260813-resume-sync"></script>
   </body>
 </html>

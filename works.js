@@ -2,13 +2,13 @@ const works = [
   {
     id: "pukang-infoflow",
     title: "3C 数码信息流素材编拍剪",
-    company: "上海璞康数据科技",
-    position: "信息流素材编拍剪一体",
+    company: "上海璞康数据科技有限公司",
+    position: "信息流内容编导 / 项目内容运营",
     period: "2026.02 - 至今",
     roles: ["策划", "拍摄", "剪辑", "数据复盘", "AI 提效"],
     category: "信息流广告素材",
     summary: "负责 3C 数码类目信息流广告素材的策划、拍摄、剪辑与数据反馈优化，主要服务大疆、联想等品牌客户，覆盖巨量千川、巨量引擎、抖音信息流等投放渠道。",
-    result: "日均产出 6-7 条素材，月均交付约 120 条；近 3 个月参与产出 / 测试 406 条，带动 GMV 约 378.46W，素材平均 CTR 约 6.71%。",
+    result: "日均产出 6 条信息流素材，月均交付 180 条；服务账户月均广告消耗约 30W，项目累计 GMV 4000W，项目平均 CTR 6%。",
     cover: "assets/covers/cover-01.png",
     priority: 1,
     featured: true,
@@ -22,12 +22,12 @@ const works = [
     id: "doctor-ip",
     title: "千万级医生 IP 新媒体矩阵",
     company: "杭州知识矩阵信息科技有限公司",
-    position: "新媒体运营 / 短视频内容策划",
+    position: "短视频内容策划 / IP 内容运营",
     period: "2024.10 - 2025.10",
     roles: ["选题策划", "文案策略", "内容运营", "风格优化"],
     category: "医生 IP 内容",
     summary: "负责多个全网头部医生 IP 账号的全平台矩阵内容运营，参与账号包括 @卢骁、@徐文斌 等，从选题、文案策略到视频风格优化进行全流程把控。",
-    result: "账号全平台粉丝量均超千万、累计获赞超 1 亿；每周打造多条爆款视频，平均播放量 3000W，单条最高获赞 200W，并推动播放量 200%+ 增长。",
+    result: "服务账号全平台粉丝均超千万、累计获赞超 1 亿；单条视频最高播放量 4000W+、最高获赞 200W+，并推动账号整体播放量提升 200%+、月均粉丝增长 10%+。",
     cover: "assets/covers/cover-02.png",
     priority: 2,
     featured: true,
@@ -41,12 +41,12 @@ const works = [
     id: "laofengxiang",
     title: "老凤祥珍珠电商短视频与直播运营",
     company: "老凤祥股份有限公司 / 杭州沪联文化科技有限公司",
-    position: "运营主管 / 电商短视频负责人",
+    position: "电商内容负责人",
     period: "2023.12 - 2024.06",
     roles: ["店铺运营", "脚本策划", "拍摄剪辑", "直播切片"],
     category: "珠宝电商内容",
     summary: "负责老凤祥珍珠天猫、京东旗舰店从 0-1 搭建与运营，同时搭建抖音直播、天猫视频号等新媒体推广矩阵，并独立完成站内视频号内容从脚本策划到剪辑上线的全流程。",
-    result: "起号 3 个月实现月度 GMV 1000W+；累计拍摄模特视频 146 个，站内播放 14W+、新增粉丝 17W；抖音视频播放 22W+，直播间引流曝光 78W、观看 5W。",
+    result: "累计拍摄模特展示视频 146 条，统筹 161 款商品视觉素材拍摄，完成产品图 805 张、模特图 644 张；推动店铺整体流量提升 80%，项目上线 3 个月实现月 GMV 1000W+。",
     cover: "assets/covers/cover-03.png",
     priority: 3,
     featured: true,
@@ -60,12 +60,12 @@ const works = [
     id: "ruanshi",
     title: "阮仕珍珠新媒体内容与短视频",
     company: "浙江阮仕珍珠股份有限公司",
-    position: "新媒体运营 / 短视频拍摄剪辑",
+    position: "短视频内容运营 / 编拍剪",
     period: "2023.02 - 2023.12",
     roles: ["账号运营", "产品拍摄", "短视频剪辑", "直播切片"],
     category: "珠宝电商内容",
     summary: "负责中高端珠宝业务的新媒体内容拍摄、短视频剪辑与账号运营，围绕珍珠饰品卖点、佩戴场景、目标人群和直播转化需求制作产品宣传、主图视频及直播切片。",
-    result: "线上业务 GMV 约 4000W，客单价约 5K；平均每天发布 12 条视频，全平台粉丝约 28W，视频月播放量 200W，引流直播间 9.22W 次。",
+    result: "平均每日产出约 12 条内容；账号累计粉丝约 28W，视频月播放量约 200W，累计引流直播间 9.22W 次、商品曝光 8.19W 次。",
     cover: "assets/covers/cover-04.png",
     priority: 4,
     featured: true,
@@ -84,7 +84,7 @@ const works = [
     roles: ["选题策划", "文案撰写", "拍摄剪辑", "数据复盘"],
     category: "新媒体内容",
     summary: "负责公司抖音、快手、小红书等新媒体矩阵账号运营，结合汽车用户关注点、门店销售需求和平台热点，完成选题策划、文案撰写、视频拍摄、剪辑发布与数据复盘。",
-    result: "视频月播放量 2000W+，每周产出 7-8 条百万播放视频；全平台粉丝总量 20W+，增长 10W+，单条爆款视频点赞 42.1W、播放量 4000W+。",
+    result: "账号月播放量 2000W+，累计打造多条百万级及千万级内容；单条视频最高播放量 4000W+、最高获赞 42.1W，累计新增粉丝 10W+。",
     cover: "assets/covers/cover-05.png",
     priority: 5,
     featured: true,
@@ -97,8 +97,8 @@ const works = [
   {
     id: "saber-tooth",
     title: "政府类宣传片拍摄与后期制作",
-    company: "金华剑齿虎文化有限公司",
-    position: "后期制作 / 宣传片拍摄",
+    company: "金华剑齿虎文化传媒有限公司",
+    position: "视频后期 / 摄影摄像",
     period: "2021.07 - 2022.03",
     roles: ["脚本撰写", "策划沟通", "影视取景", "剪辑后期"],
     category: "宣传片",
@@ -163,6 +163,10 @@ function getRealProjectWorks() {
   return getFeaturedWorks().filter((work) => !work.isExperiment);
 }
 
+function getExperimentWorks() {
+  return getFeaturedWorks().filter((work) => work.isExperiment);
+}
+
 function getCaseVideoCount(work) {
   return work.videos.length;
 }
@@ -217,7 +221,8 @@ function getVideoAction(video) {
 
 function renderPreviewMedia(video, fallbackCover, label) {
   const cover = video?.poster || video?.cover || fallbackCover;
-  return `<img class="preview-media" src="${escapeAttribute(cover)}" alt="${escapeAttribute(label)}封面" loading="lazy" decoding="async">`;
+  const fallback = fallbackCover && fallbackCover !== cover ? fallbackCover : "assets/social-card.png";
+  return `<img class="preview-media" src="${escapeAttribute(cover)}" alt="${escapeAttribute(label)}封面" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${escapeAttribute(fallback)}'">`;
 }
 
 function updateOverview() {
@@ -234,7 +239,7 @@ function renderExperienceNav() {
   const grid = document.querySelector("#experience-grid");
   if (!grid) return;
 
-  grid.innerHTML = getFeaturedWorks()
+  grid.innerHTML = getRealProjectWorks()
     .map((work, index) => `
       <article class="experience-card">
         <span>${String(index + 1).padStart(2, "0")}</span>
@@ -252,6 +257,40 @@ function renderExperienceNav() {
   grid.querySelectorAll("button").forEach((button) => {
     button.addEventListener("click", () => openWorkFromExperience(button.dataset.workId));
   });
+}
+
+function renderFeaturedWorks() {
+  const grid = document.querySelector("#featured-work-grid");
+  if (!grid) return;
+
+  grid.innerHTML = getRealProjectWorks().slice(0, 3)
+    .map((work, index) => `
+      <article class="featured-work-card">
+        <p class="featured-work-number">0${index + 1}</p>
+        <p class="featured-work-category">${work.category}</p>
+        <h3>${work.title}</h3>
+        <p class="featured-work-company">${work.company}｜${work.position}</p>
+        <div class="featured-work-proof">
+          <span>项目结果</span>
+          <strong>${getShowcaseMetric(work)}</strong>
+        </div>
+        <button type="button" data-work-id="${work.id}">查看完整案例</button>
+      </article>
+    `)
+    .join("");
+
+  grid.querySelectorAll("button").forEach((button) => {
+    button.addEventListener("click", () => openWorkFromExperience(button.dataset.workId));
+  });
+}
+
+function getShowcaseMetric(work) {
+  const metrics = {
+    "pukang-infoflow": "项目累计 GMV 4000W｜平均 CTR 6%",
+    "doctor-ip": "单条最高播放 4000W+｜获赞 200W+",
+    "laofengxiang": "起号 3 个月｜月度 GMV 1000W+"
+  };
+  return metrics[work.id] || work.result;
 }
 
 function openWorkFromExperience(id) {
@@ -298,10 +337,10 @@ function renderVideos(work, videos) {
 }
 
 function renderFeaturedVideo(work, video, secondaryCount) {
-  const cover = video?.cover || work.cover;
+  const cover = video?.poster || video?.cover || work.cover;
   if (!video?.url) {
     return `
-      <img src="${cover}" alt="${work.title}封面">
+      ${renderPreviewMedia(video, work.cover || "assets/social-card.png", work.title)}
       <span class="video-count">视频待补充</span>
     `;
   }
@@ -328,43 +367,38 @@ function renderFeaturedVideo(work, video, secondaryCount) {
   `;
 }
 
-function renderWorks() {
-  const grid = document.querySelector("#work-grid");
-  if (!grid) return;
+function renderWorkCard(work) {
+  const primaryVideo = getPrimaryVideo(work);
+  const secondaryVideos = getSecondaryVideos(work);
+  const isExpanded = expandedWorkIds.has(work.id);
+  return `
+    <article class="work-card ${isExpanded ? "expanded" : ""}" data-work-card="${work.id}">
+      <div class="work-cover">
+        ${renderFeaturedVideo(work, primaryVideo, secondaryVideos.length)}
+      </div>
+      <div class="work-body">
+        <div class="work-kicker">
+          <span>${work.period}</span>
+          <span>${work.category}</span>
+        </div>
+        <h3>${work.title}</h3>
+        <p class="company">${work.company}｜${work.position}</p>
+        <div class="roles" aria-label="项目职责">${createRoleTags(work.roles)}</div>
+        <p class="summary"><span class="case-label">项目内容</span>${work.summary}</p>
+        <p class="result"><span class="case-label">核心结果</span>${work.result}</p>
+        <div class="video-type-preview" aria-label="视频类型">${createVideoTypeTags(work.videos)}</div>
+        ${secondaryVideos.length ? `
+          <button class="expand-button" type="button" data-work-id="${work.id}" aria-expanded="${isExpanded}">
+            ${isExpanded ? "收起延展案例" : `查看剩余 ${secondaryVideos.length} 条`}
+          </button>
+        ` : ""}
+      </div>
+      ${renderVideos(work, secondaryVideos)}
+    </article>
+  `;
+}
 
-  grid.innerHTML = getFeaturedWorks()
-    .map((work) => {
-      const primaryVideo = getPrimaryVideo(work);
-      const secondaryVideos = getSecondaryVideos(work);
-      const isExpanded = expandedWorkIds.has(work.id);
-      return `
-        <article class="work-card ${isExpanded ? "expanded" : ""}" data-work-card="${work.id}">
-          <div class="work-cover">
-            ${renderFeaturedVideo(work, primaryVideo, secondaryVideos.length)}
-          </div>
-          <div class="work-body">
-            <div class="work-kicker">
-              <span>${work.period}</span>
-              <span>${work.category}</span>
-            </div>
-            <h3>${work.title}</h3>
-            <p class="company">${work.company}｜${work.position}</p>
-            <div class="roles" aria-label="项目职责">${createRoleTags(work.roles)}</div>
-            <p class="summary">${work.summary}</p>
-            <p class="result">${work.result}</p>
-            <div class="video-type-preview" aria-label="视频类型">${createVideoTypeTags(work.videos)}</div>
-            ${secondaryVideos.length ? `
-              <button class="expand-button" type="button" data-work-id="${work.id}" aria-expanded="${isExpanded}">
-                ${isExpanded ? "收起延展案例" : `查看剩余 ${secondaryVideos.length} 条`}
-              </button>
-            ` : ""}
-          </div>
-          ${renderVideos(work, secondaryVideos)}
-        </article>
-      `;
-    })
-    .join("");
-
+function bindWorkInteractions(grid) {
   grid.querySelectorAll(".expand-button").forEach((button) => {
     button.addEventListener("click", () => {
       const id = button.dataset.workId;
@@ -374,6 +408,7 @@ function renderWorks() {
         expandedWorkIds.add(id);
       }
       renderWorks();
+      renderExperiments();
     });
   });
 
@@ -382,9 +417,27 @@ function renderWorks() {
   });
 }
 
+function renderWorks() {
+  const grid = document.querySelector("#work-grid");
+  if (!grid) return;
+
+  grid.innerHTML = getRealProjectWorks().map(renderWorkCard).join("");
+  bindWorkInteractions(grid);
+}
+
+function renderExperiments() {
+  const grid = document.querySelector("#experiment-grid");
+  if (!grid) return;
+
+  grid.innerHTML = getExperimentWorks().map(renderWorkCard).join("");
+  bindWorkInteractions(grid);
+}
+
 updateOverview();
+renderFeaturedWorks();
 renderExperienceNav();
 renderWorks();
+renderExperiments();
 
 const videoModal = document.querySelector("#video-modal");
 const videoPlayer = document.querySelector("#video-player");
@@ -427,4 +480,40 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && videoModal && !videoModal.hidden) {
     closeVideoModal();
   }
+});
+
+const contactTrigger = document.querySelector(".contact-trigger");
+const contactPanel = document.querySelector("#contact-panel");
+const copyStatus = document.querySelector("#copy-status");
+
+function closeContactPanel() {
+  if (!contactTrigger || !contactPanel) return;
+  contactPanel.hidden = true;
+  contactTrigger.setAttribute("aria-expanded", "false");
+}
+
+if (contactTrigger && contactPanel) {
+  contactTrigger.addEventListener("click", () => {
+    const isOpen = !contactPanel.hidden;
+    contactPanel.hidden = isOpen;
+    contactTrigger.setAttribute("aria-expanded", String(!isOpen));
+    if (copyStatus) copyStatus.textContent = "";
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!contactPanel.hidden && !event.target.closest(".contact-menu")) {
+      closeContactPanel();
+    }
+  });
+}
+
+document.querySelectorAll("[data-copy-text]").forEach((button) => {
+  button.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(button.dataset.copyText || "");
+      if (copyStatus) copyStatus.textContent = "已复制到剪贴板";
+    } catch {
+      if (copyStatus) copyStatus.textContent = "复制受限，请手动复制上方信息";
+    }
+  });
 });
