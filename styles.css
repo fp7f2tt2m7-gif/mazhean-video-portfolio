@@ -604,6 +604,7 @@ h3 {
 .video-thumb .preview-media {
   position: absolute;
   inset: 0;
+  object-fit: cover;
 }
 
 .work-card:hover .work-cover img,

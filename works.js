@@ -133,6 +133,7 @@ const works = [
 
 const localVideoLibrary = window.localVideoLibrary || {};
 const expandedWorkIds = new Set();
+const videoRequestVersion = Date.now().toString(36);
 
 function getVideoCdnBaseUrl() {
   return String(window.VIDEO_CDN_BASE_URL || "").trim().replace(/\/+$/, "");
@@ -145,8 +146,11 @@ function isAbsoluteUrl(value) {
 function resolveVideoUrl(value) {
   const path = String(value || "").trim();
   const base = getVideoCdnBaseUrl();
-  if (!path || !base || isAbsoluteUrl(path)) return path;
-  return `${base}/${path.replace(/^\/+/, "")}`;
+  const url = !path || isAbsoluteUrl(path)
+    ? path
+    : `${base}/${path.replace(/^\/+/, "")}`;
+  if (!url) return url;
+  return `${url}${url.includes("?") ? "&" : "?"}v=${videoRequestVersion}`;
 }
 
 works.forEach((work) => {
@@ -220,9 +224,45 @@ function getVideoAction(video) {
 }
 
 function renderPreviewMedia(video, fallbackCover, label) {
+  if (video?.url) {
+    return `<video class="preview-media preview-video" muted playsinline preload="metadata" data-preview-src="${escapeAttribute(resolveVideoUrl(video.url))}" aria-label="${escapeAttribute(label)}视频预览"></video>`;
+  }
+
   const cover = video?.poster || video?.cover || fallbackCover;
   const fallback = fallbackCover && fallbackCover !== cover ? fallbackCover : "assets/social-card.png";
   return `<img class="preview-media" src="${escapeAttribute(cover)}" alt="${escapeAttribute(label)}封面" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${escapeAttribute(fallback)}'">`;
+}
+
+function loadPreviewVideo(video) {
+  if (video.getAttribute("src")) return;
+
+  video.src = video.dataset.previewSrc;
+  video.addEventListener("loadeddata", () => {
+    if (video.currentTime === 0 && Number.isFinite(video.duration)) {
+      video.currentTime = Math.min(0.1, Math.max(0, video.duration / 2));
+    }
+  }, { once: true });
+  video.load();
+}
+
+const previewVideoObserver = "IntersectionObserver" in window
+  ? new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        observer.unobserve(entry.target);
+        loadPreviewVideo(entry.target);
+      });
+    }, { rootMargin: "240px 0px" })
+  : null;
+
+function initializePreviewVideos(scope) {
+  scope.querySelectorAll("video[data-preview-src]").forEach((video) => {
+    if (previewVideoObserver) {
+      previewVideoObserver.observe(video);
+    } else {
+      loadPreviewVideo(video);
+    }
+  });
 }
 
 function updateOverview() {
@@ -423,6 +463,7 @@ function renderWorks() {
 
   grid.innerHTML = getRealProjectWorks().map(renderWorkCard).join("");
   bindWorkInteractions(grid);
+  initializePreviewVideos(grid);
 }
 
 function renderExperiments() {
@@ -431,6 +472,7 @@ function renderExperiments() {
 
   grid.innerHTML = getExperimentWorks().map(renderWorkCard).join("");
   bindWorkInteractions(grid);
+  initializePreviewVideos(grid);
 }
 
 updateOverview();
@@ -447,7 +489,7 @@ const videoModalMeta = document.querySelector("#video-modal-meta");
 function openVideoModal(button) {
   if (!videoModal || !videoPlayer) return;
 
-  videoPlayer.poster = button.dataset.videoPoster || "";
+  videoPlayer.removeAttribute("poster");
   videoPlayer.src = resolveVideoUrl(button.dataset.videoSrc);
   videoModalTitle.textContent = button.dataset.videoTitle || "作品视频";
   videoModalMeta.textContent = button.dataset.videoMeta || "视频预览";
