@@ -983,6 +983,27 @@ h3 {
   overflow-wrap: anywhere;
 }
 
+.stats-entry {
+  display: inline-grid;
+  width: 24px;
+  height: 24px;
+  margin-left: 2px;
+  place-items: center;
+  border-radius: 50%;
+  color: currentColor;
+  font-size: 1rem;
+  line-height: 1;
+  opacity: 0.16;
+  text-decoration: none;
+  transition: opacity 160ms ease, background-color 160ms ease;
+}
+
+.stats-entry:hover,
+.stats-entry:focus-visible {
+  background: rgba(24, 28, 31, 0.08);
+  opacity: 0.62;
+}
+
 .modal-open {
   overflow: hidden;
 }
