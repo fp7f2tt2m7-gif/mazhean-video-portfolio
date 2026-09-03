@@ -5,37 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex,nofollow,noarchive">
     <meta name="referrer" content="no-referrer">
-    <meta http-equiv="refresh" content="1; url=https://tongji.baidu.com/main/overview/10000735614/overview/index?siteId=23495074">
-    <title>正在打开统计后台</title>
-    <style>
-      :root {
-        color-scheme: dark;
-        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-        background: #0f1820;
-        color: #f4f0e8;
-      }
-
-      body {
-        min-height: 100vh;
-        margin: 0;
-        display: grid;
-        place-items: center;
-      }
-
-      main {
-        text-align: center;
-        padding: 24px;
-      }
-
-      a {
-        color: #d6aa63;
-      }
-    </style>
+    <meta name="theme-color" content="#111b22">
+    <title>作品集访问简报</title>
+    <link rel="stylesheet" href="stats.css?v=20260903-1914">
   </head>
   <body>
-    <main>
-      <p>正在打开百度统计后台……</p>
-      <p><a href="https://tongji.baidu.com/main/overview/10000735614/overview/index?siteId=23495074" rel="noreferrer">没有自动跳转时，点这里查看</a></p>
+    <main class="shell">
+      <div class="topbar">
+        <a href="index.html">← 返回作品集</a>
+        <a href="https://tongji.baidu.com/main/overview/10000735614/overview/index?siteId=23495074" rel="noreferrer">查看原始报告 ↗</a>
+      </div>
+      <header><h1>作品集访问简报</h1><p>匿名汇总，用来判断作品集是否被认真查看。</p></header>
+      <nav class="periods" aria-label="统计周期">
+        <button type="button" data-period="today" aria-pressed="true">今天</button>
+        <button type="button" data-period="week" aria-pressed="false">近 7 天</button>
+        <button type="button" data-period="month" aria-pressed="false">近 30 天</button>
+      </nav>
+      <section class="metric-grid" aria-label="核心指标">
+        <article><span>访问人数</span><strong id="metric-uv">—</strong></article>
+        <article><span>页面浏览</span><strong id="metric-pv">—</strong></article>
+        <article><span>BOSS 来源</span><strong id="metric-boss">—</strong></article>
+        <article><span>平均访问时长</span><strong id="metric-duration">—</strong></article>
+      </section>
+      <section class="content-grid">
+        <article class="panel"><div class="section-head"><h2>访问趋势</h2><span>近 7 天</span></div><div id="trend-content"></div></article>
+        <article class="panel"><div class="section-head"><h2>最近访问</h2><span>最多 5 条</span></div><div id="recent-content"></div></article>
+      </section>
+      <footer><span>数据来源：百度统计免费版</span><span id="updated-at">尚未更新</span></footer>
     </main>
+    <script src="stats-data.js?v=20260903-1914"></script>
+    <script src="stats.js?v=20260903-1914"></script>
   </body>
 </html>
