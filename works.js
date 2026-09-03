@@ -486,8 +486,30 @@ const videoPlayer = document.querySelector("#video-player");
 const videoModalTitle = document.querySelector("#video-modal-title");
 const videoModalMeta = document.querySelector("#video-modal-meta");
 
+function getVisitorLinkCode() {
+  const code = new URLSearchParams(window.location.search).get("hr") || "direct";
+  return /^[a-zA-Z0-9_-]{1,32}$/.test(code) ? code : "invalid";
+}
+
+function trackAnalyticsEvent(category, action, label) {
+  window._hmt = window._hmt || [];
+  window._hmt.push(["_trackEvent", category, action, label]);
+}
+
+window.setTimeout(() => {
+  if (!document.hidden) {
+    trackAnalyticsEvent("portfolio", "engaged-10s", getVisitorLinkCode());
+  }
+}, 10000);
+
 function openVideoModal(button) {
   if (!videoModal || !videoPlayer) return;
+
+  trackAnalyticsEvent(
+    "portfolio-video",
+    "play",
+    `${getVisitorLinkCode()} | ${button.dataset.videoTitle || "作品视频"}`
+  );
 
   videoPlayer.removeAttribute("poster");
   videoPlayer.src = resolveVideoUrl(button.dataset.videoSrc);
