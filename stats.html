@@ -1,39 +1,59 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex,nofollow,noarchive">
-    <meta name="referrer" content="no-referrer">
-    <meta name="theme-color" content="#111b22">
-    <title>作品集访问简报</title>
-    <link rel="stylesheet" href="stats.css?v=20260903-1914">
-  </head>
-  <body>
-    <main class="shell">
-      <div class="topbar">
-        <a href="index.html">← 返回作品集</a>
-        <a href="https://tongji.baidu.com/main/overview/10000735614/overview/index?siteId=23495074" rel="noreferrer">查看原始报告 ↗</a>
-      </div>
-      <header><h1>作品集访问简报</h1><p>匿名汇总，用来判断作品集是否被认真查看。</p></header>
-      <nav class="periods" aria-label="统计周期">
-        <button type="button" data-period="today" aria-pressed="true">今天</button>
-        <button type="button" data-period="week" aria-pressed="false">近 7 天</button>
-        <button type="button" data-period="month" aria-pressed="false">近 30 天</button>
-      </nav>
-      <section class="metric-grid" aria-label="核心指标">
-        <article><span>访问人数</span><strong id="metric-uv">—</strong></article>
-        <article><span>页面浏览</span><strong id="metric-pv">—</strong></article>
-        <article><span>BOSS 来源</span><strong id="metric-boss">—</strong></article>
-        <article><span>平均访问时长</span><strong id="metric-duration">—</strong></article>
-      </section>
-      <section class="content-grid">
-        <article class="panel"><div class="section-head"><h2>访问趋势</h2><span>近 7 天</span></div><div id="trend-content"></div></article>
-        <article class="panel"><div class="section-head"><h2>最近访问</h2><span>最多 5 条</span></div><div id="recent-content"></div></article>
-      </section>
-      <footer><span>数据来源：百度统计免费版</span><span id="updated-at">尚未更新</span></footer>
-    </main>
-    <script src="stats-data.js?v=20260903-1914"></script>
-    <script src="stats.js?v=20260903-1914"></script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#ffffff">
+  <title>访问统计管理 · 马哲铵</title>
+  <link rel="stylesheet" href="stats.css?v=20261009-motion">
+</head>
+<body>
+  <main class="stats-shell">
+    <nav class="stats-top"><a href="index.html">← 返回作品集</a><span>统计管理</span></nav>
+    <header>
+      <p class="stats-eyebrow">PORTFOLIO INSIGHTS</p>
+      <h1>了解作品，<br>是怎样被看见的。</h1>
+      <p>查看访问来源、停留和作品观看表现，决定下一次优化什么。</p>
+      <a class="stats-primary" href="https://tongji.baidu.com/main/overview/10000735614/overview/index?siteId=23495074" target="_blank" rel="noopener noreferrer">登录百度统计并查看数据 ↗</a>
+      <p class="stats-caption">数据在百度统计后台显示，需要登录有该站点权限的账号。</p>
+    </header>
+    <section class="stats-grid" aria-label="统计用途">
+      <article><span>01 / 来源</span><h2>链接有没有被打开？</h2><p>在网站概况查看访客数、浏览量和平均访问时长；按带标记的入口链接区分不同投递来源。</p></article>
+      <article><span>02 / 停留</span><h2>是略过，还是认真看？</h2><p>查看前台停留达到 10、30、60、120 秒的次数，以及各段工作经历被选择的次数。</p></article>
+      <article><span>03 / 作品</span><h2>哪些作品更有吸引力？</h2><p>比较封面点击、实际起播、有效观看时长和观看进度。点击多但观看短，可以继续检查封面、开头和内容匹配。</p></article>
+    </section>
+    <section class="stats-panel" aria-labelledby="link-title">
+      <div><p class="stats-eyebrow">SHARE WITH A SOURCE</p><h2 id="link-title">给投递链接加一个来源标记。</h2><p>使用渠道或公司代号，如 boss、company_a。标记区分链接来源，不识别 HR 的真实身份。</p></div>
+      <form id="source-form">
+        <label for="source-code">来源标记</label>
+        <div class="source-controls"><input id="source-code" name="source" value="boss" maxlength="32" pattern="[a-zA-Z0-9_-]{1,32}" required aria-describedby="source-help"><button type="submit">生成链接</button></div>
+        <p id="source-help" class="stats-caption">支持 1–32 位英文字母、数字、下划线和短横线。</p>
+        <label for="share-url">分享地址</label>
+        <input id="share-url" readonly value="https://fp7f2tt2m7-gif.github.io/mazhean-video-portfolio/?hr=boss">
+        <button id="copy-share-url" type="button" class="stats-secondary">复制分享链接</button>
+        <p id="share-status" role="status" class="stats-status"></p>
+      </form>
+    </section>
+    <section class="stats-panel stats-guide" aria-labelledby="guide-title">
+      <div><p class="stats-eyebrow">READ THE REPORT</p><h2 id="guide-title">在后台这样查看。</h2><p>进入“访问分析 → 事件分析”，按下表筛选类型和操作，再按标签比较来源或作品。</p></div>
+      <div class="stats-table-wrap"><table><thead><tr><th scope="col">想了解什么</th><th scope="col">类型 / 操作</th><th scope="col">怎么看</th></tr></thead><tbody>
+        <tr><td>投递来源访问</td><td>portfolio / visit</td><td>按标签区分 boss、company_a 等来源。</td></tr>
+        <tr><td>前台停留</td><td>portfolio / engaged-10s、30s、60s、120s</td><td>比较不同停留档位。切到后台的时间不累积。</td></tr>
+        <tr><td>经历选择</td><td>portfolio-project / select</td><td>标签包含来源和公司，比较各段经历的选择次数。</td></tr>
+        <tr><td>视频点击排行</td><td>portfolio-video / play</td><td>按事件总数排序；标签包含来源和视频标题。</td></tr>
+        <tr><td>实际播放</td><td>portfolio-video / started</td><td>区别于点开封面，视频真正开始播放才记录。</td></tr>
+        <tr><td>有效观看时长</td><td>portfolio-video / watch-seconds</td><td>事件价值为秒数；在关闭、切换或离开页面时记录。暂停、缓冲、后台时间不累积。</td></tr>
+        <tr><td>有效观看进度</td><td>portfolio-video / watched-25pct、50pct、75pct</td><td>按实际看过的不同片段计算，拖动或重复看同一段不增加覆盖比例。</td></tr>
+        <tr><td>看至结束</td><td>portfolio-video / completed</td><td>实际观看至少四分之三且播放结束，才记一次。</td></tr>
+        <tr><td>简历兴趣</td><td>portfolio-resume / open、download</td><td>分别记录打开与下载入口的点击。</td></tr>
+      </tbody></table></div>
+      <p class="stats-caption">完整前台停留片段也以 portfolio / visible-seconds 记录秒数。统计有更新延迟，离开页面上报可能受浏览器与网络影响；短时趋势配合视频点击、停留档位一起看。没有投递或曝光数量时，访问量不能直接称为链接点击率。</p>
+      <a class="stats-help" href="https://tongji.baidu.com/web/help/article?id=232&amp;type=0" target="_blank" rel="noopener noreferrer">百度统计事件报告说明 ↗</a>
+    </section>
+    <footer>此页面提供管理入口和查询说明，实际访问数据保留在登录后的统计后台。</footer>
+  </main>
+  <script src="stats.js?v=20261009-motion"></script>
+</body>
 </html>
