@@ -21,7 +21,7 @@ const titles = {
   "ai-video":["AI 大疆产品场景展示","AI 大疆运动场景广告","AI 大疆产品创意短片"]
 };
 function videosFor(id){return (library[id] || []).map((video,index)=>({...video,projectId:id,index,title:titles[id]?.[index] || video.title,...metadata[video.url]}));}
-function posterFor(video){return ""+(video.poster || video.cover || "assets/social-card.png");}
+function posterFor(video){return ""+(video.poster || video.cover || "assets/social-card.png")+(video.posterVersion ? "?v="+encodeURIComponent(video.posterVersion) : "");}
 function durationLabel(seconds){if(!Number.isFinite(Number(seconds)))return "";const value=Math.round(Number(seconds));return `${String(Math.floor(value/60)).padStart(2,"0")}:${String(value%60).padStart(2,"0")}`;}
 function metaHTML(video,isExperiment=false){return [isExperiment?"AI 实验":video.format,durationLabel(video.durationSeconds)].filter(Boolean).map(item=>`<span>${escapeHTML(item)}</span>`).join("");}
 function playAttributes(video){return `data-play="${video.projectId}" data-index="${video.index}" aria-label="播放${escapeHTML(video.title)}"`;}

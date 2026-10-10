@@ -97,7 +97,9 @@ function startVideo({resumeTime = 0} = {}) {
   setPlayerStatus('正在加载视频…');
   const relative = String(currentVideo.url).replace(/^\/+/, '');
   player.poster = posterFor(currentVideo);
-  player.src = /^https?:/.test(relative) ? relative : `${CDN}/${relative}`;
+  const mediaUrl = new URL(/^https?:/.test(relative) ? relative : `${CDN}/${relative}`);
+  if (currentVideo.mediaVersion) mediaUrl.searchParams.set('v', currentVideo.mediaVersion);
+  player.src = mediaUrl.href;
   player.load();
   loadingTimer = setTimeout(() => {
     loadingTimer = null;
