@@ -336,6 +336,27 @@ window.localVideoLibrary = {
       "sourceRelativePath": "assets/videos/ai-video/03-AI大疆产品创意短片.mp4",
       "cover": "assets/posters/ai-video/03-AI大疆产品创意短片.jpg",
       "poster": "assets/posters/ai-video/03-AI大疆产品创意短片.jpg"
+    },
+    {
+      "title": "AI 剧情促销视频",
+      "type": "AI 制作实验",
+      "format": "竖屏",
+      "url": "assets/videos/ai-video/04-ai-work-1.mp4",
+      "poster": "assets/posters/ai-video/04-ai-work-1.jpg"
+    },
+    {
+      "title": "AI TVC类宣传视频",
+      "type": "AI 制作实验",
+      "format": "竖屏",
+      "url": "assets/videos/ai-video/05-ai-work-2.mp4",
+      "poster": "assets/posters/ai-video/05-ai-work-2.jpg"
+    },
+    {
+      "title": "AI 创意展示大字报",
+      "type": "AI 制作实验",
+      "format": "竖屏",
+      "url": "assets/videos/ai-video/06-ai-work-3.mp4",
+      "poster": "assets/posters/ai-video/06-ai-work-3.jpg"
     }
   ]
 };

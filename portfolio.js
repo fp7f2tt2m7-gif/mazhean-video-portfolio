@@ -114,6 +114,8 @@ function openPlayer(id, index, opener) {
   if (!video) return;
   if (opener) returnFocus = opener;
   currentVideo = video;
+  dialog.dataset.format = video.format === '横屏' ? 'landscape' : 'portrait';
+  dialog.style.setProperty('--video-ratio', Number(video.width) > 0 && Number(video.height) > 0 ? video.width + ' / ' + video.height : '16 / 9');
   const project = projects.find(item => item.id === id);
   document.querySelector('#player-context').textContent = project ? `${project.short} · ${project.direction}` : 'AI 制作实验 · 个人创意探索';
   document.querySelector('#player-title').textContent = video.title;
@@ -143,6 +145,8 @@ dialog.addEventListener('click', event => {
 player.addEventListener('loadedmetadata', () => {
   if (!currentVideo || !dialog.open) return;
   document.querySelector('#player-detail').textContent = `${player.videoWidth > player.videoHeight ? '横屏' : '竖屏'} / ${durationLabel(player.duration)}`;
+  dialog.dataset.format = player.videoWidth > player.videoHeight ? 'landscape' : 'portrait';
+  if (player.videoWidth && player.videoHeight) dialog.style.setProperty('--video-ratio', player.videoWidth + ' / ' + player.videoHeight);
   if (pendingSeek > 0) {
     const resumeAt = Number.isFinite(player.duration) ? Math.min(pendingSeek, Math.max(0, player.duration - .25)) : pendingSeek;
     pendingSeek = 0; player.currentTime = resumeAt;

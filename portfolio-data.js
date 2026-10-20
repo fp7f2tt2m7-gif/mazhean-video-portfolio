@@ -12,7 +12,7 @@ const metadata = window.previewVideoMetadata || {};
 const CDN = String(window.VIDEO_CDN_BASE_URL || "https://mazhean-video-portfolio-1342835145.cos.ap-guangzhou.myqcloud.com").replace(/\/$/,"");
 const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const titles = {
-  "pukang-infoflow":["3C 信息流主推作品","数码产品混剪种草","大字报信息流素材","产品创意宣传"],
+  "pukang-infoflow":["3C 信息流主推作品","数码产品种草口播","大字报信息流素材","产品创意机制口播"],
   "doctor-ip":["医生 IP 主推作品","科普口播","科普演绎","综艺感科普"],
   "laofengxiang":["珍珠电商主推作品","珍珠佩戴展示","珠宝口播种草","珍珠种草混剪"],
   "ruanshi":["珠宝短视频主推作品","珍珠产品展示","珍珠佩戴展示","珠宝场景展示"],

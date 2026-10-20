@@ -25,12 +25,13 @@ window.previewVideoMetadata = {
     "posterVersion": "20261010-first-frame"
   },
   "assets/videos/pukang-infoflow/02-混剪种草.mp4": {
-    "durationSeconds": 38.033991,
-    "format": "竖屏",
-    "width": 1080,
-    "height": 1920,
-    "verifiedSource": "cdn",
-    "posterVersion": "20261010-first-frame"
+    "durationSeconds": 143.708005,
+    "format": "横屏",
+    "width": 1920,
+    "height": 1080,
+    "verifiedSource": "provided-video",
+    "posterVersion": "20261020-horizontal",
+    "mediaVersion": "20261020-horizontal"
   },
   "assets/videos/doctor-ip/01-主推案例.mp4": {
     "durationSeconds": 75.210998,
@@ -199,5 +200,32 @@ window.previewVideoMetadata = {
     "height": 1920,
     "verifiedSource": "cdn",
     "posterVersion": "20261010-first-frame"
+  },
+  "assets/videos/ai-video/04-ai-work-1.mp4": {
+    "durationSeconds": 30.675,
+    "format": "竖屏",
+    "width": 768,
+    "height": 1344,
+    "verifiedSource": "provided-video",
+    "posterVersion": "20261020-ai-additions",
+    "mediaVersion": "20261020-ai-additions"
+  },
+  "assets/videos/ai-video/05-ai-work-2.mp4": {
+    "durationSeconds": 30.675,
+    "format": "竖屏",
+    "width": 768,
+    "height": 1344,
+    "verifiedSource": "provided-video",
+    "posterVersion": "20261020-ai-additions",
+    "mediaVersion": "20261020-ai-additions"
+  },
+  "assets/videos/ai-video/06-ai-work-3.mp4": {
+    "durationSeconds": 8.010998,
+    "format": "竖屏",
+    "width": 1080,
+    "height": 1920,
+    "verifiedSource": "provided-video",
+    "posterVersion": "20261020-ai-additions",
+    "mediaVersion": "20261020-ai-additions"
   }
 };

@@ -1,0 +1,80 @@
+/* One horizontal row at every width; retain native touch and trackpad scrolling. */
+.experiment-toolbar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  margin:20px 0 13px;
+}
+.experiment-scroll-hint {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:#435a9a;
+  font-size:13px;
+  line-height:1.7;
+}
+.experiment-scroll-hint>span:first-child { font-size:21px; line-height:1; }
+.experiment-navigation { display:flex; align-items:center; gap:8px; flex-shrink:0; }
+.experiment-position {
+  min-width:56px;
+  margin-right:5px;
+  text-align:right;
+  color:#596273;
+  font-size:12px;
+  font-variant-numeric:tabular-nums;
+}
+.experiment-arrow {
+  display:grid;
+  place-items:center;
+  width:44px;
+  height:44px;
+  border:1px solid #e4e8ef;
+  border-radius:50%;
+  background:#fff;
+  color:#2b354c;
+  font-size:21px;
+  transition:background .2s,border-color .2s;
+}
+.experiment-arrow:hover:not(:disabled) { background:#f0f3fa; border-color:#cbd5eb; }
+.experiment-arrow:disabled { opacity:.3; cursor:default; }
+#experiment-grid {
+  display:flex;
+  flex-wrap:nowrap;
+  gap:22px;
+  overflow-x:auto;
+  overscroll-behavior-x:contain;
+  scroll-snap-type:x proximity;
+  scroll-padding-inline:2px;
+  padding:2px 2px 16px;
+  scrollbar-width:thin;
+  scrollbar-color:#c8d1e3 #f2f4f8;
+}
+#experiment-grid::-webkit-scrollbar { height:5px; }
+#experiment-grid::-webkit-scrollbar-track { background:#f2f4f8; border-radius:8px; }
+#experiment-grid::-webkit-scrollbar-thumb { background:#c8d1e3; border-radius:8px; }
+#experiment-grid:focus-visible { outline:2px solid var(--blue); outline-offset:5px; border-radius:14px; }
+#experiment-grid .video-card {
+  display:block;
+  flex:0 0 clamp(270px,calc((100% - 44px) / 3.2),380px);
+  scroll-snap-align:start;
+}
+#experiment-grid .video-poster { height:300px; }
+#experiment-grid h4 { margin:13px 0 4px; padding-inline:3px; }
+#experiment-grid .video-meta { padding:0 3px 3px; }
+@media(max-width:900px) {
+  #experiment-grid { gap:16px; }
+  #experiment-grid .video-card { flex-basis:44%; }
+  #experiment-grid .video-poster { height:280px; }
+}
+@media(max-width:520px) {
+  .experiment-toolbar { align-items:flex-start; flex-wrap:wrap; gap:7px 14px; margin:16px 0 12px; }
+  .experiment-scroll-hint { flex:1 1 170px; min-height:44px; font-size:12px; gap:7px; }
+  .experiment-navigation { margin-left:auto; gap:6px; }
+  .experiment-position { min-width:44px; margin-right:2px; font-size:11px; }
+  #experiment-grid { gap:13px; padding-bottom:13px; }
+  #experiment-grid .video-card { flex-basis:85%; padding:11px; }
+  #experiment-grid .video-poster { height:340px; grid-row:auto; grid-column:auto; }
+  #experiment-grid h4 { margin:12px 0 5px; padding-inline:2px; }
+  #experiment-grid .video-meta { padding:0 2px 3px; }
+}
