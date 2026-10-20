@@ -1,3 +1,10 @@
+/* Shared vector icons; decorative SVG is hidden from accessible names. */
+const portfolioIconPaths={"north-east":"<path d=\"M6 18 18 6M6 6h12v12\"/>","east":"<path d=\"M4 12h16m-6-6 6 6-6 6\"/>","west":"<path d=\"M20 12H4m6-6-6 6 6 6\"/>","north":"<path d=\"M12 20V4m-6 6 6-6 6 6\"/>","south":"<path d=\"M12 4v16m-6-6 6 6 6-6\"/>","swap":"<path d=\"M3 12h18M7 8l-4 4 4 4m10-8 4 4-4 4\"/>","repeat":"<path d=\"M19.5 8a8 8 0 1 0 .5 7M19.5 3v5h-5\"/>","play":"<path d=\"m8 5 11 7-11 7Z\" fill=\"currentColor\" stroke=\"none\"/>","spark":"<path d=\"M12 3v18M3 12h18M5.6 5.6l12.8 12.8M5.6 18.4 18.4 5.6\"/>","close":"<path d=\"m6 6 12 12M6 18 18 6\"/>"};
+function uiIcon(name){
+  const shape=portfolioIconPaths[name];
+  if(!shape)throw Error('Unknown UI icon: '+name);
+  return '<svg class="ui-icon" data-ui-icon="'+name+'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'+shape+'</svg>';
+}
 /* One renderer and one player lifecycle; motion.js only enhances these views. */
 const tabs = document.querySelector('#experience-tabs');
 const panel = document.querySelector('#project-panel');
@@ -26,7 +33,7 @@ function renderProject() {
   const horizontalCount = videos.filter(video => video.format === '横屏').length;
   const layout = horizontalCount === videos.length ? 'landscape' : horizontalCount ? 'mixed' : 'portrait';
   panel.setAttribute('aria-labelledby', `tab-${project.id}`);
-  panel.innerHTML = `<div class="project-intro"><div><div class="project-topline"><span>PROJECT ${String(index + 1).padStart(2, '0')}</span><span>${project.period}</span></div><h3 class="project-heading">${project.title}</h3><p class="project-company">${project.company}<br>${project.position}</p></div><div><p class="project-summary">${project.summary}</p><div class="project-roles"><span class="roles-label">本段经历职责</span>${project.roles.map(role => `<span class="role-tag">${role}</span>`).join('')}</div></div></div><div class="work-gallery is-${layout}">${primary ? `<article class="primary-work is-${primary.format === '横屏' ? 'landscape' : 'portrait'}"><button class="primary-poster" ${playAttributes(primary)} style="--poster:url('${escapeHTML(posterFor(primary))}')">${posterSurface(primary, {primary: true})}</button><div class="primary-caption"><h4>${escapeHTML(primary.title)}</h4><p class="video-meta">${metaHTML(primary)}</p><p class="work-note">${escapeHTML(project.description)}</p></div></article>` : ''}${videos.slice(1).map(video => videoCard(video)).join('')}</div><div class="project-next"><span>${videos.length} 条视频 · 详细履历与成果见简历</span><button data-project="${next.id}">${next.short} · ${next.direction} →</button></div>`;
+  panel.innerHTML = `<div class="project-intro"><div><div class="project-topline"><span>PROJECT ${String(index + 1).padStart(2, '0')}</span><span>${project.period}</span></div><h3 class="project-heading">${project.title}</h3><p class="project-company">${project.company}<br>${project.position}</p></div><div><p class="project-summary">${project.summary}</p><div class="project-roles"><span class="roles-label">本段经历职责</span>${project.roles.map(role => `<span class="role-tag">${role}</span>`).join('')}</div></div></div><div class="work-gallery is-${layout}">${primary ? `<article class="primary-work is-${primary.format === '横屏' ? 'landscape' : 'portrait'}"><button class="primary-poster" ${playAttributes(primary)} style="--poster:url('${escapeHTML(posterFor(primary))}')">${posterSurface(primary, {primary: true})}</button><div class="primary-caption"><h4>${escapeHTML(primary.title)}</h4><p class="video-meta">${metaHTML(primary)}</p><p class="work-note">${escapeHTML(project.description)}</p></div></article>` : ''}${videos.slice(1).map(video => videoCard(video)).join('')}</div><div class="project-next"><span>${videos.length} 条视频 · 详细履历与成果见简历</span><button data-project="${next.id}">${next.short} · ${next.direction} ${uiIcon('east')}</button></div>`;
   document.dispatchEvent(new CustomEvent('portfolio:projectrender'));
 }
 function ensureTabVisible({instant = false} = {}) {
@@ -122,7 +129,7 @@ function openPlayer(id, index, opener) {
   document.querySelector('#player-detail').textContent = [video.format, durationLabel(video.durationSeconds)].filter(Boolean).join(' / ');
   document.querySelector('#player-position').textContent = `${index + 1} / ${videos.length}`;
   previousVideo.disabled = index === 0; nextVideo.disabled = videos.length < 2;
-  nextVideo.textContent = index === videos.length - 1 ? '回到第一条 ↻' : '下一条 →';
+  nextVideo.innerHTML = index === videos.length - 1 ? '回到第一条 ' + uiIcon('repeat') : '下一条 ' + uiIcon('east');
   const opening = !dialog.open;
   if (opening) {dialog.showModal(); document.body.classList.add('modal-open');}
   document.dispatchEvent(new CustomEvent('portfolio:playeropen', {detail: {opening, video: {projectId: id, index, title: video.title, duration: video.durationSeconds}}}));

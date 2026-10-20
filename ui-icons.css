@@ -1,0 +1,28 @@
+/* Vector geometry has identical presentation regardless of system emoji fonts. */
+.ui-icon {
+  display:inline-block;
+  width:1em;
+  height:1em;
+  flex:0 0 auto;
+  vertical-align:-.14em;
+  overflow:visible;
+  pointer-events:none;
+}
+.button-arrow .ui-icon { width:14px; height:14px; vertical-align:0; }
+.scene-card-info i .ui-icon { width:13px; height:13px; }
+.scene-tag i .ui-icon { width:12px; height:12px; }
+.scene-play .ui-icon { width:15px; height:15px; vertical-align:0; }
+.skill-strip i .ui-icon { width:12px; height:12px; }
+.outline-label .ui-icon { margin-left:3px; }
+.experiment-scroll-hint>span:first-child .ui-icon { width:19px; height:19px; vertical-align:middle; }
+.experiment-arrow .ui-icon { width:19px; height:19px; vertical-align:0; }
+.contact h2>span .ui-icon { width:21px; height:21px; vertical-align:0; }
+.close-player { display:grid; place-items:center; }
+.close-player .ui-icon { width:20px; height:20px; vertical-align:0; }
+.mobile-dock a { gap:5px; }
+.player-controls .text-link { gap:5px; }
+.project-next button { display:inline-flex; align-items:center; gap:6px; }
+@media(max-width:520px) {
+  .scene-play .ui-icon { width:12px; height:12px; }
+  .mobile-dock .ui-icon { width:13px; height:13px; }
+}
