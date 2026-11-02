@@ -65,18 +65,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible {
 .skip-link:focus {
   top: 10px;
 }
-.preview-notice {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 48px;
-  color: #596273;
-  background: #f8f9fb;
-  font-size: 10px;
-  letter-spacing: .03em;
-}
-.preview-notice a {
-  color: #596273;
-}
+
 .site-header {
   position: sticky;
   top: 12px;
@@ -1249,10 +1238,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible {
   .wrapper {
     width: calc(100% - 36px);
   }
-  .preview-notice {
-    padding-inline: 18px;
-  }
-  .site-header {
+.site-header {
     height: 66px;
     padding: 0 14px;
     border-radius: 18px;

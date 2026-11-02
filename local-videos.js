@@ -312,6 +312,20 @@ window.localVideoLibrary = {
       "poster": "assets/posters/ai-video/01-AI大疆产品场景展示.jpg"
     },
     {
+      "title": "AI 大疆套装种草短片",
+      "type": "AI 制作实验",
+      "format": "竖屏",
+      "url": "assets/videos/ai-video/08-ai-work-5.mp4",
+      "poster": "assets/posters/ai-video/08-ai-work-5.jpg"
+    },
+    {
+      "title": "AI TVC类宣传视频",
+      "type": "AI 制作实验",
+      "format": "竖屏",
+      "url": "assets/videos/ai-video/05-ai-work-2.mp4",
+      "poster": "assets/posters/ai-video/05-ai-work-2.jpg"
+    },
+    {
       "title": "AI大疆运动场景广告",
       "type": "AI 视频实验",
       "format": "竖屏",
@@ -345,18 +359,25 @@ window.localVideoLibrary = {
       "poster": "assets/posters/ai-video/04-ai-work-1.jpg"
     },
     {
-      "title": "AI TVC类宣传视频",
-      "type": "AI 制作实验",
-      "format": "竖屏",
-      "url": "assets/videos/ai-video/05-ai-work-2.mp4",
-      "poster": "assets/posters/ai-video/05-ai-work-2.jpg"
-    },
-    {
       "title": "AI 创意展示大字报",
       "type": "AI 制作实验",
       "format": "竖屏",
       "url": "assets/videos/ai-video/06-ai-work-3.mp4",
       "poster": "assets/posters/ai-video/06-ai-work-3.jpg"
+    },
+    {
+      "title": "AI 大疆产品促销口播",
+      "type": "AI 制作实验",
+      "format": "竖屏",
+      "url": "assets/videos/ai-video/07-ai-work-4.mp4",
+      "poster": "assets/posters/ai-video/07-ai-work-4.jpg"
+    },
+    {
+      "title": "AI 大疆户外场景种草",
+      "type": "AI 制作实验",
+      "format": "竖屏",
+      "url": "assets/videos/ai-video/09-ai-work-6.mp4",
+      "poster": "assets/posters/ai-video/09-ai-work-6.jpg"
     }
   ]
 };

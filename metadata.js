@@ -227,5 +227,32 @@ window.previewVideoMetadata = {
     "verifiedSource": "provided-video",
     "posterVersion": "20261020-ai-additions",
     "mediaVersion": "20261020-ai-additions"
+  },
+  "assets/videos/ai-video/07-ai-work-4.mp4": {
+    "durationSeconds": 29.302993,
+    "format": "竖屏",
+    "width": 1080,
+    "height": 1920,
+    "verifiedSource": "provided-video",
+    "posterVersion": "20261102-ai-additions",
+    "mediaVersion": "20261102-ai-additions"
+  },
+  "assets/videos/ai-video/08-ai-work-5.mp4": {
+    "durationSeconds": 25.077007,
+    "format": "竖屏",
+    "width": 1080,
+    "height": 1920,
+    "verifiedSource": "provided-video",
+    "posterVersion": "20261102-ai-additions",
+    "mediaVersion": "20261102-ai-additions"
+  },
+  "assets/videos/ai-video/09-ai-work-6.mp4": {
+    "durationSeconds": 25.077007,
+    "format": "竖屏",
+    "width": 1080,
+    "height": 1920,
+    "verifiedSource": "provided-video",
+    "posterVersion": "20261102-ai-additions",
+    "mediaVersion": "20261102-ai-additions"
   }
 };

@@ -11,7 +11,7 @@ const panel = document.querySelector('#project-panel');
 let activeProject = projects[0].id;
 
 function posterSurface(video, {primary = false} = {}) {
-  return `<span class="poster-surface"><img src="${escapeHTML(posterFor(video))}" alt="${escapeHTML(video.title)}封面" ${primary ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"'}>${primary ? '<span class="work-label">代表作品 / SELECTED</span>' : ''}<span class="play-badge" aria-hidden="true"></span></span>`;
+  return `<span class="poster-surface"><img src="${escapeHTML(posterFor(video))}" alt="${escapeHTML(video.title)}封面" ${primary ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"'}><span class="play-badge" aria-hidden="true"></span></span>`;
 }
 function videoCard(video, isExperiment = false) {
   return `<article class="video-card is-${video.format === '横屏' ? 'landscape' : 'portrait'}"><button class="video-poster" ${playAttributes(video)} style="--poster:url('${escapeHTML(posterFor(video))}')">${posterSurface(video)}</button><h4>${escapeHTML(video.title)}</h4><p class="video-meta">${metaHTML(video, isExperiment)}</p></article>`;
@@ -32,8 +32,17 @@ function renderProject() {
   const index = projects.indexOf(project), videos = videosFor(project.id), primary = videos[0], next = projects[(index + 1) % projects.length];
   const horizontalCount = videos.filter(video => video.format === '横屏').length;
   const layout = horizontalCount === videos.length ? 'landscape' : horizontalCount ? 'mixed' : 'portrait';
+  const selectedRoles = {
+    'pukang-infoflow':['选题脚本','拍摄剪辑统筹','素材迭代'],
+    'doctor-ip':['内容方向','选题策划','脚本优化'],
+    'laofengxiang':['内容规划','视觉拍摄统筹','直播内容'],
+    'ruanshi':['内容策划','产品拍摄','视频剪辑'],
+    'wuling':['选题文案','视频拍摄','剪辑制作'],
+    'saber-tooth':['现场拍摄','后期包装','项目交付']
+  };
+  const roles = (selectedRoles[project.id] || project.roles.slice(0,3)).filter(role => project.roles.includes(role));
   panel.setAttribute('aria-labelledby', `tab-${project.id}`);
-  panel.innerHTML = `<div class="project-intro"><div><div class="project-topline"><span>PROJECT ${String(index + 1).padStart(2, '0')}</span><span>${project.period}</span></div><h3 class="project-heading">${project.title}</h3><p class="project-company">${project.company}<br>${project.position}</p></div><div><p class="project-summary">${project.summary}</p><div class="project-roles"><span class="roles-label">本段经历职责</span>${project.roles.map(role => `<span class="role-tag">${role}</span>`).join('')}</div></div></div><div class="work-gallery is-${layout}">${primary ? `<article class="primary-work is-${primary.format === '横屏' ? 'landscape' : 'portrait'}"><button class="primary-poster" ${playAttributes(primary)} style="--poster:url('${escapeHTML(posterFor(primary))}')">${posterSurface(primary, {primary: true})}</button><div class="primary-caption"><h4>${escapeHTML(primary.title)}</h4><p class="video-meta">${metaHTML(primary)}</p><p class="work-note">${escapeHTML(project.description)}</p></div></article>` : ''}${videos.slice(1).map(video => videoCard(video)).join('')}</div><div class="project-next"><span>${videos.length} 条视频 · 详细履历与成果见简历</span><button data-project="${next.id}">${next.short} · ${next.direction} ${uiIcon('east')}</button></div>`;
+  panel.innerHTML = `<div class="project-intro"><div><h3 class="project-heading">${project.title}</h3><p class="project-company">${project.company}</p><p class="project-position"><span>${project.position}</span><span>${project.period}</span></p></div><div class="project-roles" aria-label="本段经历职责">${roles.map(role => `<span class="role-tag">${role}</span>`).join('')}</div></div><div class="work-gallery is-${layout}">${primary ? `<article class="primary-work is-${primary.format === '横屏' ? 'landscape' : 'portrait'}"><button class="primary-poster" ${playAttributes(primary)} style="--poster:url('${escapeHTML(posterFor(primary))}')">${posterSurface(primary, {primary: true})}</button><div class="primary-caption"><h4>${escapeHTML(primary.title)}</h4><p class="video-meta">${metaHTML(primary)}</p></div></article>` : ''}${videos.slice(1).map(video => videoCard(video)).join('')}</div><div class="project-next"><span>${videos.length} 条作品</span><button data-project="${next.id}" aria-label="查看下一段经历：${next.short} · ${next.direction}">下一段：${next.short} ${uiIcon('east')}</button></div>`;
   document.dispatchEvent(new CustomEvent('portfolio:projectrender'));
 }
 function ensureTabVisible({instant = false} = {}) {

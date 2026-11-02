@@ -18,10 +18,10 @@ const titles = {
   "ruanshi":["珠宝短视频主推作品","珍珠产品展示","珍珠佩戴展示","珠宝场景展示"],
   "wuling":["汽车短视频主推作品","汽车新品宣传","门店活动混剪","汽车口播种草"],
   "saber-tooth":["宣传片主推作品","活动记录"],
-  "ai-video":["AI 大疆产品场景展示","AI 大疆运动场景广告","AI 大疆产品创意短片"]
+  "ai-video":{"assets/videos/ai-video/01-AI大疆产品场景展示.mp4":"AI 大疆产品场景展示","assets/videos/ai-video/02-AI大疆运动场景广告.mp4":"AI 大疆运动场景广告","assets/videos/ai-video/03-AI大疆产品创意短片.mp4":"AI 大疆产品创意短片"}
 };
-function videosFor(id){return (library[id] || []).map((video,index)=>({...video,projectId:id,index,title:titles[id]?.[index] || video.title,...metadata[video.url]}));}
+function videosFor(id){return (library[id] || []).map((video,index)=>({...video,projectId:id,index,title:titles[id]?.[video.url] || titles[id]?.[index] || video.title,...metadata[video.url]}));}
 function posterFor(video){return ""+(video.poster || video.cover || "assets/social-card.png")+(video.posterVersion ? "?v="+encodeURIComponent(video.posterVersion) : "");}
 function durationLabel(seconds){if(!Number.isFinite(Number(seconds)))return "";const value=Math.round(Number(seconds));return `${String(Math.floor(value/60)).padStart(2,"0")}:${String(value%60).padStart(2,"0")}`;}
-function metaHTML(video,isExperiment=false){return [isExperiment?"AI 实验":video.format,durationLabel(video.durationSeconds)].filter(Boolean).map(item=>`<span>${escapeHTML(item)}</span>`).join("");}
+function metaHTML(video,isExperiment=false){return [video.format,durationLabel(video.durationSeconds)].filter(Boolean).map(item=>`<span>${escapeHTML(item)}</span>`).join("");}
 function playAttributes(video){return `data-play="${video.projectId}" data-index="${video.index}" aria-label="播放${escapeHTML(video.title)}"`;}

@@ -19,7 +19,7 @@ function updateExperienceOverflow() {
   const rail = document.querySelector('.tab-rail'), overflow = tabs.scrollWidth > tabs.clientWidth + 2;
   rail.classList.toggle('can-scroll-left', overflow && tabs.scrollLeft > 3);
   rail.classList.toggle('can-scroll-right', overflow && tabs.scrollLeft + tabs.clientWidth < tabs.scrollWidth - 3);
-  document.querySelector('#experience-hint').textContent = overflow ? '共 6 段经历 · 左右滑动' : '共 6 段经历 · 由近及远';
+  document.querySelector('#experience-hint').textContent = overflow ? '左右滑动' : '6 段经历';
 }
 tabs.addEventListener('scroll', () => {updateTabIndicator(true); updateExperienceOverflow();}, {passive: true});
 document.addEventListener('portfolio:tabchange', () => updateTabIndicator());
