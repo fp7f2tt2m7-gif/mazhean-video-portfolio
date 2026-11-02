@@ -11,10 +11,17 @@ const panel = document.querySelector('#project-panel');
 let activeProject = projects[0].id;
 
 function posterSurface(video, {primary = false} = {}) {
-  return `<span class="poster-surface"><img src="${escapeHTML(posterFor(video))}" alt="${escapeHTML(video.title)}封面" ${primary ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"'}><span class="play-badge" aria-hidden="true"></span></span>`;
+  const source = escapeHTML(posterFor(video));
+  const fallback = escapeHTML(posterFallbackFor(video));
+  const width = Number(video.width) > 0 ? Math.round(Number(video.width)) : video.format === '横屏' ? 1920 : 1080;
+  const height = Number(video.height) > 0 ? Math.round(Number(video.height)) : video.format === '横屏' ? 1080 : 1920;
+  const image = primary
+    ? `src="${source}" fetchpriority="high"`
+    : `src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="${source}" class="deferred-poster" decoding="async"`;
+  return `<span class="poster-surface"><img ${image} data-poster-fallback="${fallback}" width="${width}" height="${height}" alt="${escapeHTML(video.title)}封面"><span class="play-badge" aria-hidden="true"></span></span>`;
 }
 function videoCard(video, isExperiment = false) {
-  return `<article class="video-card is-${video.format === '横屏' ? 'landscape' : 'portrait'}"><button class="video-poster" ${playAttributes(video)} style="--poster:url('${escapeHTML(posterFor(video))}')">${posterSurface(video)}</button><h4>${escapeHTML(video.title)}</h4><p class="video-meta">${metaHTML(video, isExperiment)}</p></article>`;
+  return `<article class="video-card is-${video.format === '横屏' ? 'landscape' : 'portrait'}"><button class="video-poster" ${playAttributes(video)}>${posterSurface(video)}</button><h4>${escapeHTML(video.title)}</h4><p class="video-meta">${metaHTML(video, isExperiment)}</p></article>`;
 }
 function renderTabs() {
   tabs.innerHTML = projects.map((project, index) => `<button class="experience-tab" role="tab" id="tab-${project.id}" aria-controls="project-panel" aria-selected="${project.id === activeProject}" tabindex="${project.id === activeProject ? 0 : -1}" data-project="${project.id}"><span class="tab-number">${String(index + 1).padStart(2, '0')}</span><span><strong class="tab-title">${project.short}</strong><span class="tab-direction">${project.direction}</span><span class="tab-date">${project.period}</span></span></button>`).join('');
@@ -42,7 +49,7 @@ function renderProject() {
   };
   const roles = (selectedRoles[project.id] || project.roles.slice(0,3)).filter(role => project.roles.includes(role));
   panel.setAttribute('aria-labelledby', `tab-${project.id}`);
-  panel.innerHTML = `<div class="project-intro"><div><h3 class="project-heading">${project.title}</h3><p class="project-company">${project.company}</p><p class="project-position"><span>${project.position}</span><span>${project.period}</span></p></div><div class="project-roles" aria-label="本段经历职责">${roles.map(role => `<span class="role-tag">${role}</span>`).join('')}</div></div><div class="work-gallery is-${layout}">${primary ? `<article class="primary-work is-${primary.format === '横屏' ? 'landscape' : 'portrait'}"><button class="primary-poster" ${playAttributes(primary)} style="--poster:url('${escapeHTML(posterFor(primary))}')">${posterSurface(primary, {primary: true})}</button><div class="primary-caption"><h4>${escapeHTML(primary.title)}</h4><p class="video-meta">${metaHTML(primary)}</p></div></article>` : ''}${videos.slice(1).map(video => videoCard(video)).join('')}</div><div class="project-next"><span>${videos.length} 条作品</span><button data-project="${next.id}" aria-label="查看下一段经历：${next.short} · ${next.direction}">下一段：${next.short} ${uiIcon('east')}</button></div>`;
+  panel.innerHTML = `<div class="project-intro"><div><h3 class="project-heading">${project.title}</h3><p class="project-company">${project.company}</p><p class="project-position"><span>${project.position}</span><span>${project.period}</span></p></div><div class="project-roles" aria-label="本段经历职责">${roles.map(role => `<span class="role-tag">${role}</span>`).join('')}</div></div><div class="work-gallery is-${layout}">${primary ? `<article class="primary-work is-${primary.format === '横屏' ? 'landscape' : 'portrait'}"><button class="primary-poster" ${playAttributes(primary)}>${posterSurface(primary, {primary: true})}</button><div class="primary-caption"><h4>${escapeHTML(primary.title)}</h4><p class="video-meta">${metaHTML(primary)}</p></div></article>` : ''}${videos.slice(1).map(video => videoCard(video)).join('')}</div><div class="project-next"><span>${videos.length} 条作品</span><button data-project="${next.id}" aria-label="查看下一段经历：${next.short} · ${next.direction}">下一段：${next.short} ${uiIcon('east')}</button></div>`;
   document.dispatchEvent(new CustomEvent('portfolio:projectrender'));
 }
 function ensureTabVisible({instant = false} = {}) {
@@ -112,7 +119,7 @@ function startVideo({resumeTime = 0} = {}) {
   pendingSeek = Number.isFinite(resumeTime) ? Math.max(0, resumeTime) : 0;
   setPlayerStatus('正在加载视频…');
   const relative = String(currentVideo.url).replace(/^\/+/, '');
-  player.poster = posterFor(currentVideo);
+  player.poster = posterFallbackFor(currentVideo);
   const mediaUrl = new URL(/^https?:/.test(relative) ? relative : `${CDN}/${relative}`);
   if (currentVideo.mediaVersion) mediaUrl.searchParams.set('v', currentVideo.mediaVersion);
   player.src = mediaUrl.href;

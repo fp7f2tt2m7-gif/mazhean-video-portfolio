@@ -21,7 +21,11 @@ const titles = {
   "ai-video":{"assets/videos/ai-video/01-AI大疆产品场景展示.mp4":"AI 大疆产品场景展示","assets/videos/ai-video/02-AI大疆运动场景广告.mp4":"AI 大疆运动场景广告","assets/videos/ai-video/03-AI大疆产品创意短片.mp4":"AI 大疆产品创意短片"}
 };
 function videosFor(id){return (library[id] || []).map((video,index)=>({...video,projectId:id,index,title:titles[id]?.[video.url] || titles[id]?.[index] || video.title,...metadata[video.url]}));}
-function posterFor(video){return ""+(video.poster || video.cover || "assets/social-card.png")+(video.posterVersion ? "?v="+encodeURIComponent(video.posterVersion) : "");}
+function posterFallbackFor(video){return ""+(video.poster || video.cover || "assets/social-card.png")+(video.posterVersion ? "?v="+encodeURIComponent(video.posterVersion) : "");}
+function posterFor(video){
+  const original=video.poster || video.cover || "assets/social-card.png";
+  return /^assets\/posters\/.+\.jpg$/.test(original) ? original.replace("assets/posters/","assets/posters-web/").replace(/\.jpg$/,".webp")+"?v=20261102-performance" : posterFallbackFor(video);
+}
 function durationLabel(seconds){if(!Number.isFinite(Number(seconds)))return "";const value=Math.round(Number(seconds));return `${String(Math.floor(value/60)).padStart(2,"0")}:${String(value%60).padStart(2,"0")}`;}
 function metaHTML(video,isExperiment=false){return [video.format,durationLabel(video.durationSeconds)].filter(Boolean).map(item=>`<span>${escapeHTML(item)}</span>`).join("");}
 function playAttributes(video){return `data-play="${video.projectId}" data-index="${video.index}" aria-label="播放${escapeHTML(video.title)}"`;}

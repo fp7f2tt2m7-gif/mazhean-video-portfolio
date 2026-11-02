@@ -114,3 +114,28 @@ motionReduced.addEventListener('change', () => {
 });
 animateProject();
 requestAnimationFrame(() => {updateTabIndicator(true); updateExperienceOverflow(); updateActiveNavigation();});
+
+// Core content is already usable; load optional transitions only after interaction.
+(() => {
+  let scheduled=false;
+  const events=['pointerdown','touchstart','keydown'];
+  const schedule=()=>{
+    if(scheduled)return;
+    scheduled=true;
+    for(const name of events)window.removeEventListener(name,schedule);
+    const connection=navigator.connection;
+    if(motionReduced.matches || connection?.saveData || /^(slow-)?2g$/.test(connection?.effectiveType || ''))return;
+    const load=()=>{
+      if(window.anime?.animate)return;
+      const script=document.createElement('script');
+      script.async=true;
+      script.src='vendor/anime-4.5.0.umd.min.js?v=20261102-performance';
+      document.head.append(script);
+    };
+    requestAnimationFrame(()=>{
+      if('requestIdleCallback' in window)requestIdleCallback(load,{timeout:2000});
+      else setTimeout(load,250);
+    });
+  };
+  for(const name of events)window.addEventListener(name,schedule,{passive:true});
+})();
