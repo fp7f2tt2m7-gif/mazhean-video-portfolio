@@ -119,8 +119,14 @@ function startVideo({resumeTime = 0} = {}) {
   pendingSeek = Number.isFinite(resumeTime) ? Math.max(0, resumeTime) : 0;
   setPlayerStatus('正在加载视频…');
   const relative = String(currentVideo.url).replace(/^\/+/, '');
+  const optimizedMediaPaths = Object.freeze({
+    "assets/videos/pukang-infoflow/02-混剪种草.mp4": "assets/videos-optimized-20261106/talk-web-crf20.mp4",
+    "assets/videos/ai-video/06-ai-work-3.mp4": "assets/videos-optimized-20261106/typography-web-crf20.mp4",
+    "assets/videos/ai-video/09-ai-work-6.mp4": "assets/videos-optimized-20261106/outdoor-web-crf20.mp4"
+  });
+  const mediaPath = optimizedMediaPaths[relative] || relative;
   player.poster = posterFallbackFor(currentVideo);
-  const mediaUrl = new URL(/^https?:/.test(relative) ? relative : `${CDN}/${relative}`);
+  const mediaUrl = new URL(/^https?:/.test(mediaPath) ? mediaPath : `${CDN}/${mediaPath}`);
   if (currentVideo.mediaVersion) mediaUrl.searchParams.set('v', currentVideo.mediaVersion);
   player.src = mediaUrl.href;
   player.load();
@@ -183,18 +189,38 @@ player.addEventListener('playing', () => {
   if (!dialog.open || !currentVideo) return;
   hasStartedPlayback = true; clearPlayerTimers(); status.hidden = true;
 });
+let bufferingAtTime = null;
 function handleBuffering() {
-  if (!dialog.open || !currentVideo || player.error || (player.paused && !player.seeking) || !hasStartedPlayback) return;
+  if (!dialog.open || !currentVideo || player.error || player.ended || (player.paused && !player.seeking) || !hasStartedPlayback) return;
+  if (player.readyState >= 3 && !player.seeking) return;
   if (bufferingTimer || status.classList.contains('error') && !status.hidden) return;
+  bufferingAtTime = player.currentTime;
   setPlayerStatus('正在缓冲视频…');
   const session = playerSession;
   bufferingTimer = setTimeout(() => {
     bufferingTimer = null;
-    if (session === playerSession && dialog.open && currentVideo) setPlayerStatus('缓冲时间较长，可重新加载继续观看，或切换下一条。', {error: true});
+    if (session !== playerSession || !dialog.open || !currentVideo || player.error) return;
+    const advancing = bufferingAtTime !== null && player.currentTime > bufferingAtTime + 0.01;
+    if (player.paused || player.ended || advancing || (player.readyState >= 3 && !player.seeking)) {
+      status.hidden = true;
+      bufferingAtTime = null;
+      return;
+    }
+    setPlayerStatus('缓冲时间较长，可重新加载继续观看，或切换下一条。', {error: true});
   }, BUFFER_TIMEOUT_MS);
 }
 player.addEventListener('waiting', handleBuffering);
-player.addEventListener('stalled', handleBuffering);
+player.addEventListener('stalled', () => {
+  if (player.readyState < 3) handleBuffering();
+});
+player.addEventListener('timeupdate', () => {
+  if (bufferingAtTime === null || !dialog.open || !currentVideo || player.paused || player.seeking || player.error) return;
+  if (player.currentTime > bufferingAtTime + 0.01 && player.readyState >= 3) {
+    clearPlayerTimers();
+    status.hidden = true;
+    bufferingAtTime = null;
+  }
+});
 player.addEventListener('pause', () => {
   clearTimeout(bufferingTimer); bufferingTimer = null;
   if (hasStartedPlayback && !status.classList.contains('error')) status.hidden = true;
